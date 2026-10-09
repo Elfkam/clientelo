@@ -26,14 +26,14 @@ export function SourcesSection() {
                             target="_blank"
                             rel="noreferrer"
                         >
-                            Factsheet ↗
+                            Factsheet
                         </a>
                         <a
                             href={fund.nyseQuote}
                             target="_blank"
                             rel="noreferrer"
                         >
-                            NYSE ↗
+                            NYSE
                         </a>
                     </li>
                 ))}
