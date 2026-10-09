@@ -46,14 +46,13 @@ export function LeadSection({ track }: LeadSectionProps) {
                         <em>na jednom místě.</em>
                     </h2>
                     <p className={styles.leadDescription}>
-                        Vyzkoušejte místní ukázku formuláře. E-mail se nikam
-                        neodesílá a PDF se nedoručuje.
+                        Po zadání e-mailové adresy obdržíte PDF s podrobným
+                        srovnání spousty ETF.
                     </p>
                 </div>
                 <div className={styles.formCard}>
                     {status === "success" ? (
                         <div role="status" className={styles.success}>
-                            <span aria-hidden="true">✓</span>
                             <h3>Děkujeme za odběr</h3>
                             <p>
                                 Dokument s přehledem ETF se vám přijde v
@@ -111,8 +110,8 @@ export function LeadSection({ track }: LeadSectionProps) {
                                 }
                             >
                                 {status === "submitting"
-                                    ? "Načítání…"
-                                    : "Vyzkoušet odeslání"}
+                                    ? "Odesílání…"
+                                    : "Odeslat"}
                             </button>
                         </form>
                     )}
