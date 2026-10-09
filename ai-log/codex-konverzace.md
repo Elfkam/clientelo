@@ -50,3 +50,18 @@ Tento soubor je ruční přepis viditelné konverzace a významných kroků, nik
 +- Primární dokumenty Vanguard: F0968, F0967, F0966, F0969 a F0920; stav údajů 30. 6. 2026. NYSE adresář je dostupný, ale záznamy jsou pro textový nástroj skryté za JavaScriptem. Oficiální NYSE oznámení z roku 2008 potvrzuje čtyři tickery na NYSE Arca; oficiální stránka NYSE z roku 2026 potvrzuje VOO.
 +- `npm run build` prošel, upozornil na Node.js 20.18.1 pod deklarovaným minimem Vite. První `npm run lint` našel zápis do `ref` během renderu; po opravě prošel.
 +- Headless Chrome pořídil snímky pro 390 × 844 px a 1365 × 900 px; úvodní obrazovka je čitelná a CTA je vidět. Test interakcí ještě následuje.
+
+## 2026-10-09 21:08 CEST — CODEX
+
+> Při ověření klávesnicí jsem našel nesoulad se zadáním: kliknutí na už vybrané ETF ponechalo v tabulce jediný fond. Upravím výběr tak, aby byly vždy porovnávány přesně dva fondy, a znovu ověřím myš i klávesnici. Test s řízenými odpověďmi v prohlížeči už potvrdil zobrazení čekání, chyby 429, síťové chyby a úspěchu až po HTTP 200; tyto testy neodesílaly adresu do Formspree.
+
+## 2026-10-09 21:10 CEST — CODEX
+
+> Reprodukovatelný test v Chrome nyní prochází: mobilní šířka bez vodorovného přetečení, ovládání klávesnicí, vždy dvě ETF v porovnání, validace, čekání, HTTP 429, síťová chyba, opakování i potvrzení po HTTP 200. Veřejný GitHub repozitář existuje a je dostupný; ještě ověřím možnost zápisu a nasazení. Pro publikaci webu použiji pokyny `sites:sites`, které určují dostupný postup hostingu.
+
+## 2026-10-09 21:11 CEST — CODEX (práce a ověření)
+
++- Opraven výběr: vždy přesně dvě ETF. Headless Chrome ověřil i stisk mezerníku na zaměřené kartě VUG.
++- `npm run test:smoke` prochází: mobilní viewport, klávesnice, validace, čekání, 429, síťová chyba, retry, úspěch po HTTP 200, UTM a absence e-mailu v analytických událostech. HTTP odpovědi jsou nahrazeny pouze v testovacím prohlížeči; skutečné Formspree přijetí tím potvrzeno není.
++- `npm run lint` a `npm run build` znovu prošly. Chrome snímky mobilu a desktopu byly vizuálně zkontrolovány. GitHub API potvrzuje veřejný repozitář `Elfkam/clientelo`; GitHub Pages zatím vrací 404.
++- První commit `c49c2d3` obsahuje zadání, zdroje, reklamy a průběžný AI log. Před dalším commitem byl log doplněn o práci od tohoto commitu.
