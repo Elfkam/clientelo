@@ -56,3 +56,7 @@ PRAVIDLA PRO KÓD A JAZYK
 7. POŘADÍ PRÁCE A HOTOVO
 
 Začni repo + ai-log, ověř pět fondů a zdroje, připrav sdělení a dvě reklamy, vytvoř mobilní React stránku, napoj veřejný formulář, přidej měření, README a testy důležitých stavů, sestav produkční build a nasaď. Dělej menší srozumitelné commity. Pokud konfigurace veřejného API, analytiky nebo nasazení vyžaduje účet zadavatele, dokonči všechny ostatní části a přesně napiš, která hodnota či přístup chybí; nikdy nevymýšlej funkční URL ani úspěšný výsledek. Výstupem je veřejný repozitář s historií a ai-logem, dvě reklamy, nasazená URL, doložené zdroje a README se všemi výše uvedenými body. Zadavateli dej krátký seznam toho, co skutečně běží, a co je pouze deklarované omezení ukázky.
+
+8. AKTUÁLNÍ POKYN ZADAVATELE (9. 10. 2026)
+
+Od této chvíle nic nenasazovat ani necommitovat. Tento novější pokyn má přednost před dřívějšími požadavky na průběžné commity a nasazení. Další nasazení nebo commit je možné pouze po novém výslovném pokynu zadavatele.

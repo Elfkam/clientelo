@@ -65,3 +65,48 @@ Tento soubor je ruční přepis viditelné konverzace a významných kroků, nik
 +- `npm run test:smoke` prochází: mobilní viewport, klávesnice, validace, čekání, 429, síťová chyba, retry, úspěch po HTTP 200, UTM a absence e-mailu v analytických událostech. HTTP odpovědi jsou nahrazeny pouze v testovacím prohlížeči; skutečné Formspree přijetí tím potvrzeno není.
 +- `npm run lint` a `npm run build` znovu prošly. Chrome snímky mobilu a desktopu byly vizuálně zkontrolovány. GitHub API potvrzuje veřejný repozitář `Elfkam/clientelo`; GitHub Pages zatím vrací 404.
 +- První commit `c49c2d3` obsahuje zadání, zdroje, reklamy a průběžný AI log. Před dalším commitem byl log doplněn o práci od tohoto commitu.
+
+## 2026-10-09 21:14 CEST (přibližný čas, ruční doplnění) — UŽIVATEL
+
+> Pres co a jak si to nasadil na [https://etf-v-kostce-clientelo.ezconvey-s-r-0944.chatgpt.site/](https://etf-v-kostce-clientelo.ezconvey-s-r-0944.chatgpt.site/) ?
+
+## 2026-10-09 21:14 CEST (přibližný čas, ruční doplnění) — CODEX
+
+> Nasadil jsem ho přes **ChatGPT Sites**, ke kterému je v tomto prostředí přístup. Z lokální React aplikace jsem vytvořil produkční build (`npm run build`), zkopíroval jeho statické soubory z `dist/` do samostatného zdrojového repozitáře Sites, uložil verzi a zveřejnil ji na uvedené adrese. Není to Vercel ani GitHub Pages; na stránce běží statický build bez vlastního backendu. Formulář je vypnutý, protože chybí skutečný Formspree endpoint.
+>
+> GitHub je oddělený problém: původní repozitář je veřejný, ale aktuální commity se tam zatím nepodařilo odeslat, protože prostředí nemá přihlašovací údaje pro zápis. Teď doplním tuto informaci i URL nasazení do README a AI logu.
+
+## 2026-10-09 21:15 CEST (přibližný čas, ruční doplnění) — UŽIVATEL
+
+> Odted nebudes nic nasazovat ani commitovat, pridej si to do tech instruckci a nic jineho ted nedelej.
+
+## 2026-10-09 21:15 CEST (přibližný čas, ruční doplnění) — CODEX
+
+> Doplním do `instructions.txt` zákaz dalšího nasazování a commitování. Jinou práci teď neprovedu.
+
+## 2026-10-09 21:15 CEST (přibližný čas, ruční doplnění) — CODEX
+
+> Do [instructions.txt](/home/dolezj/Ubuntu/clientelo/clientelo/instructions.txt) jsem doplnil tvůj aktuální pokyn. Nic dalšího jsem neudělal, nenasadil ani necommitoval.
+
+## 2026-10-09 21:17 CEST (přibližný čas, ruční doplnění) — UŽIVATEL
+
+> Rozdel App.tsx sekce do jednotlivych komponent
+
+## 2026-10-09 21:17 CEST (přibližný čas, ruční doplnění) — CODEX
+
+> Rozdělím sekce z `App.tsx` do samostatných komponent a zachovám současné chování i vzhled. Podle tvého posledního pokynu nebudu nic commitovat ani nasazovat. Použiji postup `safe-refactor` a po úpravě ověřím lint, build a test hlavní cesty.
+
+## 2026-10-09 21:18 CEST (přibližný čas, ruční doplnění) — CODEX
+
+> Výchozí lint, build i prohlížečový test procházejí. Vytáhnu statické sekce do samostatných komponent, potom oddělím srovnání a formulář s jejich stavem. `App.tsx` zůstane místem, které skládá stránku a propojuje výběr ETF s měřením.
+
+## 2026-10-09 21:20 CEST — CODEX
+
+> Sekce jsou rozdělené do osmi komponent: hlavička, hero, úvod, srovnání, formulář, zdroje, informace o soukromí a patička. `App.tsx` teď obsahuje hlavně jejich pořadí a propojení. Po úpravě procházejí stejné kontroly jako před ní: lint, build a test v Chrome včetně klávesnice a stavů formuláře. Ještě doplním záznam této práce do místního AI logu; commit ani nasazení neprovedu.
+
+## 2026-10-09 21:20 CEST — CODEX (práce a ověření)
+
++- Refaktoring pouze v `src/App.tsx` a nových souborech `src/components/`. Původní sekce byly přesunuty bez změny obsahu. `ComparisonSection` dostává výběr a callbacky přes props; `LeadSection` vlastní stav odeslání a sledování viditelnosti formuláře.
++- Před úpravou i po ní prošly `npm run lint`, `npm run build` a `npm run test:smoke`. Build upozorňuje na místní Node.js 20.18.1 pod deklarovaným minimem Vite. `git diff --check` prošel.
++- Od posledního pokynu zadavatele nebyl proveden žádný commit ani nasazení. Starší necommitovaná změna v `instructions.txt` zůstala nedotčená.
++- Tento záznam je ručně doplněný; časy starších bloků jsou označeny jako přibližné. Viditelné zprávy této části konverzace jsou zachyceny, technická metadata a výpisy nástrojů nejsou úplným exportem.
