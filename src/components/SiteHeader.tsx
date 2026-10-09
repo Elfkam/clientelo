@@ -12,7 +12,7 @@ export function SiteHeader() {
                 <span>v kostce</span>
             </a>
             <a className={styles.headerLink} href="#comparison">
-                Srovnání <span aria-hidden="true">↗</span>
+                Srovnání
             </a>
         </header>
     );
