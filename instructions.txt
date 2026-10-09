@@ -1,0 +1,58 @@
+POKYNY PRO CODEX: REACT LANDING PAGE PRO SROVNÁNÍ 5 ETF
+
+Přečti celý tento soubor a řiď se jím během práce ve VS Code. Úkolem je vytvořit funkční českou mobilní landing page. Pracuj průběžně v git repozitáři, odeslání e-mailu hodnotiteli obstará zadavatel.
+
+1. CÍL A ROZSAH
+
+- Cílová skupina: česky mluvící návštěvník, který zná základní význam ETF, přichází z mobilní reklamy a chce během pár sekund pochopit rozdíly mezi pěti ETF kotovanými na burzách skupiny NYSE. Není podmínkou, aby je mohl nakoupit český drobný investor.
+- Udělej responzivní React aplikaci s TypeScript s jasným příslibem, skutečnými daty, srovnáním přesně 5 ETF a jedním hlavním konverzním cílem: odeslat návštěvníkův e-mail do veřejného formulářového API.
+- Připrav dvě konkrétní verze reklamy v repozitáři (text, titulek, CTA, návrh vizuálu a očekávaná návaznost první obrazovky). Hero stránky musí splnit jejich příslib.
+- Stránka představuje ukázku lead magnetu: nabídni PDF přehled pěti ETF po zadání e-mailu. Zadavatel však výslovně nechce vytvářet PDF, doručovat je, poskytovat odkaz ke stažení ani psát vlastní backend. Implementuj jen odeslání e-mailové adresy veřejnému API a zpracování jeho odpovědi. V README otevřeně uveď, že doručení PDF není implementováno a úspěšná odpověď potvrzuje pouze přijetí kontaktu API. Neoznačuj přijetí adresy za prokazatelné doručení PDF.
+- Žádné předstírané odeslání: formulář smí zobrazit úspěch až po skutečné úspěšné odpovědi API. Při chybě ukaž srozumitelnou zprávu a možnost opakovat pokus.
+
+PRAVIDLA PRO KÓD A JAZYK
+
+- Veškeré názvy proměnných, funkcí, komponent, typů, souborů a vlastních hooků piš anglicky a používej konzistentní, výstižné názvy. Také komentáře v kódu, technickou dokumentaci a popisy commitů piš anglicky, kromě README to napiš česky. Výjimky: texty samotné stránky, obě reklamy a jejich CTA zůstanou česky; v ai-logu zachovej původní jazyk a doslovné znění konverzace. Data a citace zdrojů nepřekládej způsobem, který mění jejich význam.
+- Dodržuj aktuální oficiální pravidla Reactu: komponenty a hooky jsou čisté při renderování, stav neměň přímo, hooky volej na nejvyšší úrovni funkčních komponent nebo jiných hooků a nikdy podmíněně, v cyklu či ve vnořeném handleru. Efekty používej pro synchronizaci s externími systémy; odvozené hodnoty počítej při renderování, když efekt není potřeba. Řiď se https://react.dev/reference/rules/rules-of-hooks a https://react.dev/learn/reusing-logic-with-custom-hooks.
+- Vytvoř vlastní hooky pro konkrétní znovupoužitelnou stavovou logiku aplikace, například useEtfComparison pro výběr a porovnání fondů, useLeadSubmission pro odeslání formuláře a jeho stavy a useFunnelTracking pro události. Názvy začínají use a každý hook má jasný účel. Nevytvářej prázdné nebo umělé hooky jen kvůli splnění počtu; čisté datové transformace nech jako běžné funkce.
+- Pro stylování používej CSS Modules + běžné CSS
+
+2. VÝBĚR ETF A PRÁCE S FAKTY
+
+- Vyber přesně pět konkrétních ETF z oficiálního seznamu ETF na webu NYSE (https://www.nyse.com/listings_directory/etf). Může jít o ETF kotovaná na NYSE nebo NYSE Arca; u každého výslovně napiš přesné tržní místo. Fondy vybírej pro srozumitelné porovnání, například pět fondů s odlišným zaměřením na americký akciový trh. Dostupnost pro českého investora, evropská registrace UCITS ani existence PRIIPs KID nejsou výběrovými podmínkami.
+- Na oficiálním webu NYSE ověř u každého fondu ticker, název a burzu jeho kotace. Stránku emitenta a aktuální factsheet použij pro další parametry; odliš, na které burze se obchoduje ETF a do jakých aktiv investuje. Pokud je fond kotovaný na NYSE Arca, označ ho „NYSE Arca“, ne jen „NYSE“ bez vysvětlení. Neodvozuj burzu ETF pouze z burzy jeho podkladových akcií.
+- Každý zobrazený fakt opři o primární zdroj (oficiální NYSE a emitent). U každého fondu ulož do repozitáře přesné URL, datum kontroly, datum platnosti údaje, ticker a zdroj jednotlivých metrik; ISIN přidej pouze tehdy, když ho zdroj spolehlivě uvádí. Rozlišuj nákladovost fondu, měnu fondu a měnu obchodování. Neprezentuj historický výnos jako příslib ani výpočty jako individuální investiční doporučení.
+- Zvol srovnatelné ukazatele, například index/expozice, nákladovost, distribuční politika, velikost fondu a hlavní rizika. Nepoužívej nedoložené aktuální ceny nebo falešný real-time údaj. Přidej stručné upozornění, že dostupnost nákupu závisí na brokerovi, jurisdikci a typu investora; českému investorovi nákup těchto fondů neslibuj.
+
+3. KONVERZNÍ STRÁNKA
+
+- První mobilní obrazovka: konkrétní titulek vycházející z reklamy, jednovětá hodnota, důvěryhodný údaj nebo náhled porovnání a zřetelné CTA. Nepoužívej generické investiční fráze ani vizuál připomínající nedokončenou AI šablonu.
+- Návštěvník musí vidět užitečné porovnání ještě před formulářem. Vytvoř jednoduché interaktivní srovnání pěti fondů; například volbu dvou ETF a přehled rozdílů. Každý zásadní krok nabídne smysluplnou cestu k formuláři. Nepřidávej interakce jen pro efekt.
+- E-mailový formulář má jediné povinné pole e-mail, přesný popis, co návštěvník očekává, dostupné stavy odesílání, úspěch a chyba. Volitelný marketingový souhlas odděl od obsluhy požadavku; neoznačuj jej předem. Přidej odkaz na stručné informace o zpracování osobních údajů včetně provozovatele, účelu, poskytovatele formuláře, doby uchování a kontaktu. Pokud provozovatele zadavatel nedodal, dej jasně označené místo k doplnění a před ostrým provozem ho vyžádej.
+- Po úspěchu potvrď jen přijetí e-mailové adresy (např. „Děkujeme, váš e-mail jsme přijali.“). Text webu může popisovat zamýšlený PDF přehled, ale nesmí tvrdit, že API již doručilo PDF, protože tato část není postavená. V README napiš, že jde o omezenou demonstraci konverzní cesty a že před skutečnou reklamní kampaní je nutné doručování doplnit.
+- Udrž rychlé načtení na mobilu, přístupnost klávesnicí, čitelnost, vhodné kontrasty a žádné rozbité stavy při pomalé síti.
+
+4. VEŘEJNÉ API BEZ BACKENDU
+
+- Použij reálnou veřejnou formulářovou službu, například Formspree, s endpointem typu https://formspree.io/f/ID_FORMULARE. Formulář odesílá e-mail přes HTTPS POST a čeká na skutečnou HTTP odpověď. Nenahrazuj endpoint lokálním mockem v produkčním buildu.
+- ID formuláře poskytne zadavatel nebo jej nastaví ve své službě. Čti endpoint z proměnné prostředí VITE_FORMSPREE_ENDPOINT; do repozitáře ulož pouze .env.example s příkladem. Nenechávej ve zveřejněném kódu osobní e-mail, API klíč ani tajemství. Endpoint pro veřejné podání formuláře není tajný, přesto jej udrž konfigurovatelný.
+- Validuj e-mail, zakaž opakované kliknutí během odesílání, zpracuj síťovou chybu i neúspěšný HTTP stav (včetně limitu 429). Na úspěch přejdi pouze po kladné odpovědi. V README popiš konfiguraci, založení formuláře, ověření přijetí v účtu služby a test úspěšného i chybového stavu. Pokud chybí skutečný endpoint, uveď to jako blokující nastavení; nevydávej lokální demo za ověřenou integraci.
+
+5. MĚŘENÍ A README
+
+- Navrhni a zapoj měření celé cesty: landing_view, compare_start, compare_change, lead_cta_click, lead_form_view, lead_submit_attempt, lead_submit_success, lead_submit_error. U každé události popiš spouštěč a parametry (např. varianta reklamy/UTM, zvolená ETF, fáze trychtýře). Do analytiky neposílej e-mail ani jiný osobní údaj. Zachovej UTM parametry od příchodu k měření konverze; případnou analytickou službu nastav jen podle platných pravidel souhlasu.
+- Pokud chybí analytický účet nebo měřicí ID, udělej jasně popsaný adaptér a funkční lokální kontrolu událostí, ale netvrď, že vzdálené měření běží. Uveď, jak se produkční měření zapne a ověří.
+- README: cílová skupina, hlavní nabídka a přesný okamžik žádosti o kontakt, důvod pořadí sekcí, obě české reklamy nebo odkaz na jejich soubor, datové zdroje a přesná kotovací burza každého z pěti ETF, diagram nebo tabulka událostí, způsob testování, nasazení a známá omezení. Uveď, že výběr neověřuje dostupnost pro české retailové investory.
+- Uveď číselný odhad konverze (např. pracovní hypotézu procenta návštěva → úspěšně přijatý lead), definici jmenovatele a čitatele a tři hypotézy A/B testů v pořadí očekávaného dopadu. Označ odhad za hypotézu, ne za naměřený výsledek.
+- Přidej reprodukovatelný postup spuštění a buildu. Ověř mobilní zobrazení, klávesnici a cestu reklamní odkaz → srovnání → odeslání → potvrzení. Zveřejni veřejný GitHub repozitář a URL stránky na bezplatném hostingu, pokud k tomu máš přístupy. U hostingu ověř aktuální podmínky: bezplatný Vercel Hobby je podle jeho pravidel určen pro nekomerční použití; pro skutečnou reklamní kampaň zvol vhodný plán nebo jiný vhodný hosting. V README rozliš školní ukázku a ostrý provoz.
+
+6. AI-LOG: POVINNÝ PRŮBĚŽNÝ ZÁZNAM V REPOZITÁŘI
+
+- Hned na začátku vytvoř adresář ai-log/ a soubor ai-log/codex-konverzace.md. Založ jej ještě před prvními implementačními změnami a průběžně jej commituj spolu s kódem. Adresář musí zůstat ve veřejném repozitáři.
+- Do souboru zapisuj chronologicky každé pracovní zadání uživatele pro Codex a podstatné odpovědi Codexu. U každého bloku uveď datum a čas, roli (UŽIVATEL/CODEX), přesné znění uživatelského požadavku a věrný záznam viditelné odpovědi. Doplň rozhodnutí, opravy, změny směru, významné příkazy a výsledky ověření. Když nelze automaticky získat úplný export, vlož obsah ručně po každé výměně nebo co nejdřív a výslovně označ, co je ruční přepis a zda něco chybí. Nevymýšlej neexistující zprávy ani netvrď, že jde o export Claude Code.
+- Záznam nezačínej až na konci projektu. Před každým významným commitem ověř, že ai-log zahrnuje práci od posledního commitu; průběžné commity mají ukazovat vývoj řešení. Přidej ai-log/README.md v angličtině: tento projekt byl vytvořen pomocí Codexu, protože zadavatel nepoužíval Claude Code; požadovaný /export z Claude Code proto nebylo možné vytvořit a místo něj je doložen průběžný ručně udržovaný záznam konverzací s Codexem. V hlavním README na tuto odchylku upozorni.
+- Před zveřejněním záznamu odstraň hesla, tokeny, soukromé e-maily, jiné citlivé údaje a případné osobní údaje návštěvníků; zásahy označ jako [REDAKTOVÁNO]. Nikdy neloguj hodnoty vyplněné návštěvníkem ve formuláři. Samotné veřejné zadání a technická rozhodnutí ponech dohledatelné.
+
+7. POŘADÍ PRÁCE A HOTOVO
+
+Začni repo + ai-log, ověř pět fondů a zdroje, připrav sdělení a dvě reklamy, vytvoř mobilní React stránku, napoj veřejný formulář, přidej měření, README a testy důležitých stavů, sestav produkční build a nasaď. Dělej menší srozumitelné commity. Pokud konfigurace veřejného API, analytiky nebo nasazení vyžaduje účet zadavatele, dokonči všechny ostatní části a přesně napiš, která hodnota či přístup chybí; nikdy nevymýšlej funkční URL ani úspěšný výsledek. Výstupem je veřejný repozitář s historií a ai-logem, dvě reklamy, nasazená URL, doložené zdroje a README se všemi výše uvedenými body. Zadavateli dej krátký seznam toho, co skutečně běží, a co je pouze deklarované omezení ukázky.
