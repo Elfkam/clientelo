@@ -1,10 +1,11 @@
-import styles from "../App.module.css";
+import styles from "./SourcesSection.module.css";
+import shared from "../styles/shared.module.css";
 import { etfs } from "../etfs";
 
 export function SourcesSection() {
     return (
         <section
-            className={styles.notes}
+            className={`${shared.sectionContainer} ${styles.notes}`}
             id="sources"
             aria-labelledby="sources-title"
         >

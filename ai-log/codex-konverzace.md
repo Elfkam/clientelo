@@ -179,3 +179,18 @@ Součástí požadavku byl referenční obrázek mobilního srovnání: dva sele
 +- Upraveny texty formuláře, informace o soukromí, CTA srovnání a názvy měřicích událostí na `lead_demo_*`, aby nepotvrzovaly reálný sběr kontaktů.
 +- `npm run lint`, `npm run build`, `npm run test:smoke` a `git diff --check` prošly. Smoke test ověřil sekundové načítání, blokování duplicit, potvrzení ukázky a žádné síťové volání z formuláře. Vite upozorňuje na místní Node.js 20.18.1.
 +- Nic nebylo commitováno ani nasazeno. Záznam je ruční a není automatickým exportem.
+
+## 2026-10-09 22:18 CEST — UŽIVATEL
+
+> Rozdel styly podle toho v jake komponente se to pouziva at to neni vse v jednom souboru. Pokud jsou nejake spolecne jako napriklad barvy, tak na to udelej neco hromadneho, at je to jen na jednom miste.
+
+## 2026-10-09 22:18 CEST — CODEX
+
+> Rozdělím styly podle komponent a společné barvy a další sdílené hodnoty přesunu do jednoho místa. Použiji postup `safe-refactor`, abych zachoval současné zobrazení a chování. Nic nebudu commitovat ani nasazovat.
+
+## 2026-10-09 22:18 CEST — CODEX (práce a ověření)
+
++- `src/App.module.css` byl rozdělen do šesti modulů u komponent; globální typografie a barevné tokeny jsou v `src/styles/global.css` a opakované styly tlačítka a rozvržení sekcí v `src/styles/shared.module.css`.
++- Původní rozpracovaná změna `.visualTop` byla zachována. Dvě již před úpravou nepoužité lokální proměnné v `ComparisonSection` byly odstraněny bez změny chování, aby prošel lint a build. V hero byly odstraněny dva odkazy na neexistující CSS třídy.
++- Před změnou selhávaly lint a build na těchto proměnných a smoke test na textu potvrzení formuláře. Po změně lint a build procházejí; smoke test prochází kontrolami rozvržení a stále končí na stejném výchozím nesouladu textu potvrzení v řádku 123.
++- Žádný commit ani nasazení. Ruční záznam, ne automatický export.

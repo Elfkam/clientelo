@@ -1,4 +1,4 @@
-import styles from "../App.module.css";
+import styles from "./SiteFooter.module.css";
 
 export function SiteFooter() {
     return (

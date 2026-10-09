@@ -1,0 +1,98 @@
+.hero {
+    background: var(--color-background-hero);
+    overflow: hidden;
+}
+.heroInner {
+    max-width: var(--content-width);
+    margin: auto;
+    min-height: 570px;
+    padding: 75px 24px;
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 65px;
+    align-items: center;
+}
+.lead {
+    font-size: 18px;
+    line-height: 1.55;
+    max-width: 580px;
+    color: var(--color-text-lead);
+    margin-bottom: 28px;
+}
+.heroNote {
+    font-size: 12px;
+    color: var(--color-text-note);
+    margin: 18px 0 0;
+}
+.heroVisual {
+    background: var(--color-background-visual);
+    box-shadow: 22px 22px 0 var(--color-shadow-visual);
+    border: 1px solid var(--color-border-visual);
+    padding: 25px;
+    transform: rotate(2deg);
+}
+.visualTop {
+    display: flex;
+    justify-content: space-between;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.13em;
+    color: var(--color-text-visual);
+}
+.visualTop {
+    padding-bottom: 28px;
+    border-bottom: 1px solid var(--color-border-visual-rule);
+}
+.visualRow {
+    display: flex;
+    gap: 13px;
+    align-items: center;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--color-border-visual-row);
+    font-size: 13px;
+}
+.visualRow:last-child {
+    border: 0;
+}
+.visualRow strong {
+    font-size: 24px;
+    letter-spacing: -0.06em;
+    width: 62px;
+}
+.visualIndex {
+    color: var(--color-text-visual-index);
+    font-size: 11px;
+}
+.visualLine {
+    height: 2px;
+    background: var(--color-line-visual);
+    flex: 1;
+}
+@media (max-width: 900px) {
+    .heroInner {
+        gap: 30px;
+    }
+}
+@media (max-width: 650px) {
+    .heroInner {
+        display: block;
+        padding: 56px 20px 66px;
+        min-height: 0;
+    }
+    .hero h1 {
+        font-size: 45px;
+    }
+    .heroVisual {
+        margin: 48px 15px 0 0;
+        padding: 18px;
+        box-shadow: 14px 14px 0 var(--color-shadow-visual);
+    }
+    .visualRow {
+        padding: 10px 0;
+    }
+}
+@media (max-width: 380px) {
+    .hero h1 {
+        font-size: 39px;
+    }
+}

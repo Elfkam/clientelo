@@ -1,4 +1,4 @@
-import styles from "../App.module.css";
+import styles from "./SiteHeader.module.css";
 
 export function SiteHeader() {
     return (

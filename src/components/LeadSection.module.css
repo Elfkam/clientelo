@@ -1,0 +1,107 @@
+.leadSection {
+    background: var(--color-green-panel);
+    color: var(--color-white);
+}
+.leadLayout {
+    max-width: var(--content-width);
+    margin: auto;
+    padding: 90px 24px;
+    display: grid;
+    grid-template-columns: 1fr 430px;
+    gap: 90px;
+}
+.leadSection {
+    color: var(--color-green-light);
+}
+.leadSection h2 {
+    font-size: clamp(38px, 4.5vw, 59px);
+    line-height: 1.1;
+    margin: 23px 0;
+}
+.leadSection h2 em {
+    color: var(--color-sand-heading);
+}
+.leadDescription {
+    line-height: 1.65;
+    color: var(--color-text-on-panel);
+    max-width: 470px;
+}
+.formCard {
+    background: var(--color-white);
+    color: var(--color-ink);
+    padding: 30px;
+    border-radius: 5px;
+    align-self: start;
+}
+.formCard label {
+    font-weight: 800;
+    font-size: 13px;
+    display: block;
+    margin-bottom: 10px;
+}
+.formCard input {
+    width: 100%;
+    height: 52px;
+    border: 1px solid var(--color-border-input);
+    border-radius: 4px;
+    padding: 0 14px;
+    background: var(--color-white);
+    color: var(--color-ink);
+}
+.formMessage {
+    font-size: 12px;
+    line-height: 1.5;
+    color: var(--color-text-form);
+}
+.formMessage {
+    min-height: 18px;
+    margin: 10px 0;
+}
+.submitButton {
+    width: 100%;
+}
+.submitButton:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+}
+.success span {
+    display: grid;
+    place-items: center;
+    background: var(--color-background-success);
+    color: var(--color-green-link);
+    width: 47px;
+    height: 47px;
+    border-radius: 50%;
+    font-size: 23px;
+}
+.success h3 {
+    font-family: var(--font-display);
+    font-size: 28px;
+    font-weight: 500;
+    line-height: 1.2;
+    margin: 20px 0 10px;
+}
+.success p {
+    font-size: 14px;
+    color: var(--color-text-success);
+    line-height: 1.5;
+}
+@media (max-width: 900px) {
+    .leadLayout {
+        grid-template-columns: 1fr 1fr;
+        gap: 35px;
+    }
+}
+@media (max-width: 650px) {
+    .leadLayout {
+        display: block;
+        padding: 64px 20px;
+    }
+    .leadSection h2 {
+        font-size: 42px;
+    }
+    .formCard {
+        margin-top: 30px;
+        padding: 22px;
+    }
+}

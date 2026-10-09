@@ -1,0 +1,47 @@
+.header {
+    height: 72px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 max(24px, calc((100vw - var(--content-width)) / 2));
+    border-bottom: 1px solid var(--color-border-header);
+    background: var(--color-background-page);
+}
+.brand {
+    text-decoration: none;
+    font-size: 19px;
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+.brand span:last-child {
+    font-weight: 400;
+}
+.brandMark {
+    display: inline-grid;
+    place-items: center;
+    width: 34px;
+    height: 34px;
+    margin-right: 7px;
+    background: var(--color-green-link);
+    color: var(--color-white);
+    border-radius: 50%;
+    font-family: var(--font-display);
+    font-style: italic;
+}
+.headerLink {
+    font-weight: 700;
+    font-size: 14px;
+    text-decoration: none;
+}
+.headerLink span {
+    margin-left: 8px;
+}
+@media (max-width: 650px) {
+    .header {
+        height: 64px;
+        padding: 0 20px;
+    }
+}

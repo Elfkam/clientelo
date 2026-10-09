@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
-import styles from "../App.module.css";
+import styles from "./LeadSection.module.css";
+import shared from "../styles/shared.module.css";
 import type { useFunnelTracking } from "../hooks";
 import { useLeadDemo } from "../hooks";
 
@@ -80,7 +81,7 @@ export function LeadSection({ track }: LeadSectionProps) {
                                 disabled={status === "submitting"}
                             />
                             <button
-                                className={styles.submitButton}
+                                className={`${shared.actionButton} ${styles.submitButton}`}
                                 type="submit"
                                 disabled={status === "submitting"}
                             >

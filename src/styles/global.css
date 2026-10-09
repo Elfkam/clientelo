@@ -1,0 +1,99 @@
+:root {
+  --content-width: 1180px;
+  --font-body: Inter, Arial, sans-serif;
+  --font-display: Georgia, serif;
+  --color-green-hover: #0a3d2b;
+  --color-green-link: #14533f;
+  --color-green-action: #15543f;
+  --color-green-panel: #163e31;
+  --color-ink: #173229;
+  --color-green-accent: #2d7354;
+  --color-text-lead: #40564d;
+  --color-text-card: #50665a;
+  --color-text-label: #51705e;
+  --color-text-muted: #52685c;
+  --color-text-success: #53685a;
+  --color-text-table: #54705e;
+  --color-text-form: #5c6f61;
+  --color-text-note: #617267;
+  --color-text-select-label: #657c70;
+  --color-text-table-label: #677970;
+  --color-text-visual: #688272;
+  --color-text-card-label: #6b8073;
+  --color-border-select: #8ca99b;
+  --color-text-visual-index: #97a89b;
+  --color-green-light: #9fd1a9;
+  --color-orange-heading: #a45e2b;
+  --color-line-visual: #a6bea6;
+  --color-border-input: #aebfb1;
+  --color-orange-focus: #c87937;
+  --color-sand-heading: #cfb688;
+  --color-border-table-head: #d0dfd1;
+  --color-border-visual: #d3ddcf;
+  --color-text-on-panel: #d3e1d6;
+  --color-shadow-visual: #d4dfd0;
+  --color-border-select-divider: #d5e1d7;
+  --color-border-section: #d6ded3;
+  --color-border-card: #d7dfd4;
+  --color-border-header: #d9ded3;
+  --color-border-visual-rule: #dce4d8;
+  --color-background-success: #e1f2e5;
+  --color-border-visual-row: #e5e9e1;
+  --color-border-table-row: #e6ebe3;
+  --color-background-hero: #e6eddf;
+  --color-background-mobile-head: #e7f0e5;
+  --color-background-table-head: #e9f1e5;
+  --color-background-selected: #eef5eb;
+  --color-background-mobile-label: #f2f6f0;
+  --color-background-page: #f7f7f2;
+  --color-background-select: #f8faf5;
+  --color-background-visual: #fbfaf5;
+  --color-white: #fff;
+}
+
+* {
+    box-sizing: border-box;
+}
+html {
+    scroll-behavior: smooth;
+}
+body {
+    margin: 0;
+    background: var(--color-background-page);
+    color: var(--color-ink);
+    font-family: var(--font-body);
+}
+button,
+input {
+    font: inherit;
+}
+a {
+    color: inherit;
+}
+:focus-visible {
+    outline: 3px solid var(--color-orange-focus);
+    outline-offset: 3px;
+}
+h1,
+h2,
+h3,
+p {
+    margin-top: 0;
+}
+h1,
+h2 {
+    font-family: var(--font-display);
+    font-weight: 500;
+    letter-spacing: -0.045em;
+}
+h1 {
+    font-size: clamp(44px, 5.2vw, 72px);
+    line-height: 1.06;
+    max-width: 680px;
+    margin: 23px 0;
+}
+h1 em,
+h2 em {
+    font-weight: 400;
+    color: var(--color-orange-heading);
+}

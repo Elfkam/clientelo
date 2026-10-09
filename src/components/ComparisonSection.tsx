@@ -1,4 +1,5 @@
-import styles from "../App.module.css";
+import styles from "./ComparisonSection.module.css";
+import shared from "../styles/shared.module.css";
 import type { Etf } from "../etfs";
 import { etfs } from "../etfs";
 
@@ -18,13 +19,12 @@ export function ComparisonSection({
     selectedFunds,
     toggleFund,
     selectFund,
-    onLeadCtaClick,
 }: ComparisonSectionProps) {
     const hasComparison = selectedFunds.length === 2;
 
     return (
         <section
-            className={styles.comparison}
+            className={`${shared.sectionContainer} ${styles.comparison}`}
             id="comparison"
             aria-labelledby="comparison-title"
         >
@@ -75,7 +75,7 @@ export function ComparisonSection({
                 className={styles.fundGrid}
                 aria-label="Výběr ETF pro srovnání"
             >
-                {etfs.map((fund, index) => {
+                {etfs.map((fund) => {
                     const selected = selectedEtfs.includes(fund.ticker);
                     return (
                         <button

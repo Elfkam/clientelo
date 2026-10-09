@@ -21,6 +21,10 @@ npm run test:smoke
 
 Není potřeba nastavovat endpoint ani proměnnou prostředí. Produkční sestavení je v `dist/`; ukázkový formulář v něm také nic neodesílá.
 
+## Styly
+
+Globální barvy, písma, šířka obsahu a základní typografie jsou v `src/styles/global.css`. Sdílené tlačítko a rozvržení sekcí jsou v `src/styles/shared.module.css`. Každá komponenta v `src/components/` má vlastní CSS modul se svými styly a media queries.
+
 ## Pět ETF a zdroje
 
 Kontrola 9. 10. 2026. Všechny níže uvedené číselné hodnoty a názvy jsou z oficiálních factsheetů emitenta **platných k 30. 6. 2026**. Nákladovost je ukazatel expense ratio z prospektu citovaného v těchto factsheetech, nikoli poplatek brokera. „Aktiva ETF“ jsou ETF total net assets, nikoli aktiva celé třídy fondu; na webu jsou zaokrouhlena z milionů na miliardy USD. Počet akcií patří portfoliu ETF. Výplata dividend je podle údaje „Dividend schedule: Quarterly“; jde o výplatu, nikoli akumulaci. Popisy rizik jsou stručné redakční interpretace složení či zaměření jednotlivých fondů a nejsou kvantitativním hodnocením rizika. Živou cenu ani výnos nezobrazujeme. Měna aktiv (USD) není totéž co obchodní měna; obchodní měna není na stránce tvrzena, protože použitý factsheet ji výslovně neuvádí. ISIN proto také neuvádíme.

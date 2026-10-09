@@ -1,190 +1,12 @@
-:global(*) {
-    box-sizing: border-box;
-}
-:global(html) {
-    scroll-behavior: smooth;
-}
-:global(body) {
-    margin: 0;
-    background: #f7f7f2;
-    color: #173229;
-    font-family: Inter, Arial, sans-serif;
-}
-:global(button),
-:global(input) {
-    font: inherit;
-}
-:global(a) {
-    color: inherit;
-}
-:global(:focus-visible) {
-    outline: 3px solid #c87937;
-    outline-offset: 3px;
-}
-.header {
-    height: 72px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 max(24px, calc((100vw - 1180px) / 2));
-    border-bottom: 1px solid #d9ded3;
-    background: #f7f7f2;
-}
-.brand {
-    text-decoration: none;
-    font-size: 19px;
-    font-weight: 800;
-    letter-spacing: -0.04em;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-}
-.brand span:last-child {
-    font-weight: 400;
-}
-.brandMark {
-    display: inline-grid;
-    place-items: center;
-    width: 34px;
-    height: 34px;
-    margin-right: 7px;
-    background: #14533f;
-    color: #fff;
-    border-radius: 50%;
-    font-family: Georgia, serif;
-    font-style: italic;
-}
-.headerLink {
-    font-weight: 700;
-    font-size: 14px;
-    text-decoration: none;
-}
-.headerLink span {
-    margin-left: 8px;
-}
-.hero {
-    background: #e6eddf;
-    overflow: hidden;
-}
-.heroInner {
-    max-width: 1180px;
-    margin: auto;
-    min-height: 570px;
-    padding: 75px 24px;
-    display: grid;
-    grid-template-columns: 1.1fr 0.9fr;
-    gap: 65px;
-    align-items: center;
-}
-h1,
-h2,
-h3,
-p {
-    margin-top: 0;
-}
-h1,
-h2 {
-    font-family: Georgia, serif;
-    font-weight: 500;
-    letter-spacing: -0.045em;
-}
-h1 {
-    font-size: clamp(44px, 5.2vw, 72px);
-    line-height: 1.06;
-    max-width: 680px;
-    margin: 23px 0;
-}
-h1 em,
-h2 em {
-    font-weight: 400;
-    color: #a45e2b;
-}
-.lead {
-    font-size: 18px;
-    line-height: 1.55;
-    max-width: 580px;
-    color: #40564d;
-    margin-bottom: 28px;
-}
-.primaryButton,
-.submitButton {
-    background: #15543f;
-    color: white;
-    border: 0;
-    text-decoration: none;
-    display: inline-flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 48px;
-    font-weight: 700;
-    padding: 17px 21px;
-    border-radius: 5px;
-    cursor: pointer;
-}
-.primaryButton:hover,
-.submitButton:hover:not(:disabled) {
-    background: #0a3d2b;
-}
-.heroNote {
-    font-size: 12px;
-    color: #617267;
-    margin: 18px 0 0;
-}
-.heroVisual {
-    background: #fbfaf5;
-    box-shadow: 22px 22px 0 #d4dfd0;
-    border: 1px solid #d3ddcf;
-    padding: 25px;
-    transform: rotate(2deg);
-}
-.visualTop,
-.visualTop {
-    padding-bottom: 28px;
-    border-bottom: 1px solid #dce4d8;
-}
-.visualRow {
-    display: flex;
-    gap: 13px;
-    align-items: center;
-    padding: 14px 0;
-    border-bottom: 1px solid #e5e9e1;
-    font-size: 13px;
-}
-.visualRow:last-child {
-    border: 0;
-}
-.visualRow strong {
-    font-size: 24px;
-    letter-spacing: -0.06em;
-    width: 62px;
-}
-.visualIndex {
-    color: #97a89b;
-    font-size: 11px;
-}
-.visualLine {
-    height: 2px;
-    background: #a6bea6;
-    flex: 1;
-}
-.comparison,
-.notes {
-    max-width: 1180px;
-    margin: auto;
-    padding: 80px 24px;
-}
-.h2,
-.sectionHeading h2,
-.notes h2 {
+.sectionHeading h2 {
     font-size: clamp(38px, 4vw, 55px);
     line-height: 1.1;
     margin: 0 0 18px;
 }
-.sectionHeading > p,
-.notes > div > p:last-child {
+.sectionHeading > p {
     max-width: 530px;
     line-height: 1.6;
-    color: #52685c;
+    color: var(--color-text-muted);
 }
 .sectionHeading {
     display: flex;
@@ -206,22 +28,22 @@ h2 em {
 .fundCard {
     appearance: none;
     text-align: left;
-    background: #fff;
-    border: 1px solid #d7dfd4;
+    background: var(--color-white);
+    border: 1px solid var(--color-border-card);
     border-radius: 5px;
     min-height: 207px;
     padding: 17px;
     cursor: pointer;
     display: flex;
     flex-direction: column;
-    color: #173229;
+    color: var(--color-ink);
 }
 .fundCard:hover {
-    border-color: #2d7354;
+    border-color: var(--color-green-accent);
 }
 .fundCard.selected {
-    border: 2px solid #15543f;
-    background: #eef5eb;
+    border: 2px solid var(--color-green-action);
+    background: var(--color-background-selected);
     padding: 16px;
 }
 .fundTop {
@@ -230,12 +52,12 @@ h2 em {
     align-items: center;
     font-size: 9px;
     font-weight: 800;
-    color: #6b8073;
+    color: var(--color-text-card-label);
     letter-spacing: 0.08em;
 }
 .selectIcon {
     font-size: 17px;
-    color: #15543f;
+    color: var(--color-green-action);
 }
 .fundCard > strong {
     font-size: 37px;
@@ -244,7 +66,7 @@ h2 em {
 }
 .fundFocus {
     font-size: 13px;
-    color: #50665a;
+    color: var(--color-text-card);
     margin-top: 2px;
     min-height: 38px;
 }
@@ -252,15 +74,15 @@ h2 em {
     display: flex;
     justify-content: space-between;
     gap: 5px;
-    border-top: 1px solid #d7dfd4;
+    border-top: 1px solid var(--color-border-card);
     padding-top: 12px;
     margin-top: auto;
     font-size: 12px;
 }
 .tableWrap {
     overflow-x: auto;
-    border: 1px solid #d7dfd4;
-    background: #fff;
+    border: 1px solid var(--color-border-card);
+    background: var(--color-white);
 }
 .tableWrap table {
     border-collapse: collapse;
@@ -274,25 +96,25 @@ h2 em {
     font-weight: 800;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: #51705e;
-    border-bottom: 1px solid #d7dfd4;
+    color: var(--color-text-label);
+    border-bottom: 1px solid var(--color-border-card);
 }
 .tableWrap th,
 .tableWrap td {
     text-align: left;
     padding: 15px 20px;
-    border-bottom: 1px solid #e6ebe3;
+    border-bottom: 1px solid var(--color-border-table-row);
     vertical-align: top;
     width: 33.33%;
     line-height: 1.35;
 }
 .tableWrap thead th {
-    background: #e9f1e5;
+    background: var(--color-background-table-head);
     font-size: 19px;
 }
 .tableWrap tbody th {
     font-size: 13px;
-    color: #54705e;
+    color: var(--color-text-table);
 }
 .tableWrap tbody td {
     font-size: 14px;
@@ -300,173 +122,14 @@ h2 em {
 .tableWrap tr:last-child > * {
     border-bottom: 0;
 }
-.leadSection {
-    background: #163e31;
-    color: #fff;
-}
-.leadLayout {
-    max-width: 1180px;
-    margin: auto;
-    padding: 90px 24px;
-    display: grid;
-    grid-template-columns: 1fr 430px;
-    gap: 90px;
-}
-.leadSection {
-    color: #9fd1a9;
-}
-.leadSection h2 {
-    font-size: clamp(38px, 4.5vw, 59px);
-    line-height: 1.1;
-    margin: 23px 0;
-}
-.leadSection h2 em {
-    color: #cfb688;
-}
-.leadDescription {
-    line-height: 1.65;
-    color: #d3e1d6;
-    max-width: 470px;
-}
-.formCard {
-    background: #fff;
-    color: #173229;
-    padding: 30px;
-    border-radius: 5px;
-    align-self: start;
-}
-.formCard label {
-    font-weight: 800;
-    font-size: 13px;
-    display: block;
-    margin-bottom: 10px;
-}
-.formCard input {
-    width: 100%;
-    height: 52px;
-    border: 1px solid #aebfb1;
-    border-radius: 4px;
-    padding: 0 14px;
-    background: #fff;
-    color: #173229;
-}
-.formMessage {
-    font-size: 12px;
-    line-height: 1.5;
-    color: #5c6f61;
-}
-.formMessage {
-    min-height: 18px;
-    margin: 10px 0;
-}
-.submitButton {
-    width: 100%;
-}
-.submitButton:disabled {
-    opacity: 0.55;
-    cursor: not-allowed;
-}
-.success span {
-    display: grid;
-    place-items: center;
-    background: #e1f2e5;
-    color: #14533f;
-    width: 47px;
-    height: 47px;
-    border-radius: 50%;
-    font-size: 23px;
-}
-.success h3 {
-    font-family: Georgia, serif;
-    font-size: 28px;
-    font-weight: 500;
-    line-height: 1.2;
-    margin: 20px 0 10px;
-}
-.success p {
-    font-size: 14px;
-    color: #53685a;
-    line-height: 1.5;
-}
-.notes {
-    display: grid;
-    grid-template-columns: 1fr 1.4fr;
-    gap: 45px;
-}
-.notes ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-.notes li {
-    border-bottom: 1px solid #d6ded3;
-    padding: 15px 0;
-    display: grid;
-    grid-template-columns: 55px 1fr auto auto;
-    align-items: center;
-    gap: 13px;
-    font-size: 13px;
-}
-.notes li strong {
-    font-size: 18px;
-}
-.notes li a {
-    font-size: 12px;
-    color: #14533f;
-    font-weight: 700;
-}
-.footer {
-    border-top: 1px solid #d6ded3;
-    padding: 28px max(24px, calc((100vw - 1180px) / 2));
-    display: flex;
-    justify-content: space-between;
-    font-size: 12px;
-    color: #52685c;
-}
-.footer a {
-    font-weight: 800;
-    text-decoration: none;
-}
 @media (max-width: 900px) {
-    .heroInner {
-        gap: 30px;
-    }
     .fundGrid {
         grid-template-columns: repeat(3, 1fr);
     }
-    .leadLayout {
-        grid-template-columns: 1fr 1fr;
-        gap: 35px;
-    }
-    .notes {
-        grid-template-columns: 1fr;
-    }
 }
 @media (max-width: 650px) {
-    .header {
-        height: 64px;
-        padding: 0 20px;
-    }
-    .heroInner {
-        display: block;
-        padding: 56px 20px 66px;
-        min-height: 0;
-    }
-    .hero h1 {
-        font-size: 45px;
-    }
-    .heroVisual {
-        margin: 48px 15px 0 0;
-        padding: 18px;
-        box-shadow: 14px 14px 0 #d4dfd0;
-    }
-    .visualRow {
-        padding: 10px 0;
-    }
     .comparison,
-    .notes,
-    .h2,
-    .sectionHeading h2 {
+.sectionHeading h2 {
         font-size: 42px;
     }
     .sectionHeading {
@@ -499,32 +162,8 @@ h2 em {
     .fundExpense {
         font-size: 11px;
     }
-    .leadLayout {
-        display: block;
-        padding: 64px 20px;
-    }
-    .leadSection h2 {
-        font-size: 42px;
-    }
-    .formCard {
-        margin-top: 30px;
-        padding: 22px;
-    }
-    .notes li {
-        grid-template-columns: 46px 1fr;
-        gap: 6px;
-    }
-    .notes li a {
-        grid-column: auto;
-    }
-    .footer {
-        padding: 23px 20px;
-    }
 }
 @media (max-width: 380px) {
-    .hero h1 {
-        font-size: 39px;
-    }
     .fundGrid {
         grid-template-columns: 1fr 1fr;
     }
@@ -556,7 +195,7 @@ h2 em {
         font-size: 12px;
         font-weight: 800;
         letter-spacing: 0.08em;
-        color: #51705e;
+        color: var(--color-text-label);
         margin-bottom: 8px;
     }
     .selectorField select {
@@ -564,10 +203,10 @@ h2 em {
         width: 100%;
         min-height: 52px;
         padding: 0 14px;
-        border: 1px solid #aebfb1;
+        border: 1px solid var(--color-border-input);
         border-radius: 5px;
-        background: #fff;
-        color: #173229;
+        background: var(--color-white);
+        color: var(--color-ink);
         font-size: 15px;
         font-weight: 700;
     }
@@ -578,8 +217,8 @@ h2 em {
         overflow: visible;
     }
     .tableWrap table,
-    .tableWrap thead,
-    .tableWrap tbody {
+.tableWrap thead,
+.tableWrap tbody {
         display: block;
         width: 100%;
         min-width: 0;
@@ -606,7 +245,7 @@ h2 em {
         grid-column: 1/-1;
         width: auto;
         padding: 12px 14px 6px;
-        background: #f2f6f0;
+        background: var(--color-background-mobile-label);
         border-bottom: 0;
     }
     .tableWrap tbody td {
@@ -617,7 +256,7 @@ h2 em {
         overflow-wrap: anywhere;
     }
     .tableWrap tbody td + td {
-        border-left: 1px solid #e6ebe3;
+        border-left: 1px solid var(--color-border-table-row);
     }
 }
 
@@ -630,7 +269,7 @@ h2 em {
 .comparison .sectionHeading > div > p:last-child {
     font-size: 17px;
     line-height: 1.5;
-    color: #52685c;
+    color: var(--color-text-muted);
     margin: 0;
 }
 .tableWrap {
@@ -653,14 +292,14 @@ h2 em {
     display: grid;
     place-items: center;
     text-align: center;
-    color: #52685c;
+    color: var(--color-text-muted);
     font-size: 17px;
     line-height: 1.4;
 }
 .comparisonDetails {
     margin-top: 16px;
-    background: #fff;
-    border: 1px solid #d7dfd4;
+    background: var(--color-white);
+    border: 1px solid var(--color-border-card);
     border-radius: 6px;
 }
 .comparisonDetails summary {
@@ -689,14 +328,14 @@ h2 em {
 .detailsGrid {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    border-top: 1px solid #d7dfd4;
+    border-top: 1px solid var(--color-border-card);
 }
 .detailsGrid > div {
     padding: 18px 20px;
     min-width: 0;
 }
 .detailsGrid > div + div {
-    border-left: 1px solid #d7dfd4;
+    border-left: 1px solid var(--color-border-card);
 }
 .detailsGrid h3 {
     font-size: 18px;
@@ -725,9 +364,9 @@ h2 em {
         grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 0;
         margin-bottom: 16px;
-        border: 1px solid #8ca99b;
+        border: 1px solid var(--color-border-select);
         border-radius: 6px;
-        background: #f8faf5;
+        background: var(--color-background-select);
         overflow: hidden;
     }
     .selectorField {
@@ -735,14 +374,14 @@ h2 em {
         padding: 13px 12px 11px;
     }
     .selectorField + .selectorField {
-        border-left: 1px solid #d5e1d7;
+        border-left: 1px solid var(--color-border-select-divider);
     }
     .selectorField label {
         font-size: 10px;
         letter-spacing: 0.1em;
         text-transform: uppercase;
         margin-bottom: 7px;
-        color: #657c70;
+        color: var(--color-text-select-label);
     }
     .selectorField select {
         min-height: 39px;
@@ -750,7 +389,7 @@ h2 em {
         border: 0;
         border-radius: 0;
         background: transparent;
-        color: #173229;
+        color: var(--color-ink);
         font-size: 24px;
         font-weight: 800;
         letter-spacing: -0.04em;
@@ -759,19 +398,19 @@ h2 em {
         padding: 13px 10px;
         font-size: 21px;
         text-align: center;
-        background: #e7f0e5;
+        background: var(--color-background-mobile-head);
         border-bottom: 0;
     }
     .tableWrap thead th + th {
-        border-left: 1px solid #d0dfd1;
+        border-left: 1px solid var(--color-border-table-head);
     }
     .tableWrap tbody tr {
-        border-top: 1px solid #d7dfd4;
+        border-top: 1px solid var(--color-border-card);
     }
     .tableWrap tbody th {
         padding: 14px 13px 3px;
-        background: #fff;
-        color: #677970;
+        background: var(--color-white);
+        color: var(--color-text-table-label);
         font-size: 10px;
         font-weight: 800;
         letter-spacing: 0.1em;
@@ -779,14 +418,14 @@ h2 em {
     }
     .tableWrap tbody td {
         padding: 4px 13px 15px;
-        background: #fff;
-        color: #173229;
+        background: var(--color-white);
+        color: var(--color-ink);
         font-size: 15px;
         line-height: 1.35;
         border-bottom: 0;
     }
     .tableWrap tbody td + td {
-        border-left: 1px solid #d7dfd4;
+        border-left: 1px solid var(--color-border-card);
     }
     .comparisonDetails summary {
         padding: 16px;

@@ -1,11 +1,12 @@
-import styles from "../App.module.css";
+import styles from "./HeroSection.module.css";
+import shared from "../styles/shared.module.css";
 import { etfs, factsAsOf } from "../etfs";
 
 export function HeroSection() {
     return (
         <section className={styles.hero} aria-labelledby="hero-title">
             <div className={styles.heroInner}>
-                <div className={styles.heroCopy}>
+                <div>
                     <h1 id="hero-title">
                         ETF na americké akcie.{" "}
                         <em>Jaký je mezi nimi rozdíl?</em>
@@ -14,7 +15,7 @@ export function HeroSection() {
                         Srovnejte zaměření, náklady a rizika fondů kotovaných na
                         NYSE Arca.
                     </p>
-                    <a className={styles.primaryButton} href="#comparison">
+                    <a className={shared.actionButton} href="#comparison">
                         Porovnat ETF <span aria-hidden="true">↗</span>
                     </a>
                     <p className={styles.heroNote}>
@@ -29,7 +30,7 @@ export function HeroSection() {
                         <span>PŘEHLED FONDŮ</span>
                         <span>NYSE ARCA</span>
                     </div>
-                    <div className={styles.visualBars}>
+                    <div>
                         {etfs.map((fund, index) => (
                             <div className={styles.visualRow} key={fund.ticker}>
                                 <span className={styles.visualIndex}>

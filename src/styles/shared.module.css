@@ -1,0 +1,22 @@
+.actionButton {
+    background: var(--color-green-action);
+    color: var(--color-white);
+    border: 0;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 48px;
+    font-weight: 700;
+    padding: 17px 21px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.actionButton:hover:not(:disabled) {
+    background: var(--color-green-hover);
+}
+.sectionContainer {
+    max-width: var(--content-width);
+    margin: auto;
+    padding: 80px 24px;
+}
