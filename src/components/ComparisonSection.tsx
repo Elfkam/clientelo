@@ -92,7 +92,7 @@ export function ComparisonSection({ selectedEtfs, selectedFunds, toggleFund, sel
         </details>
       )}
       <p className={styles.sourceNote}>Údaje k {factsAsOf}. <a href="#sources">Zdroje a datum údajů</a>.</p>
-      <a className={styles.textCta} href="#lead" onClick={onLeadCtaClick}>Získat přehled e-mailem <span aria-hidden="true">→</span></a>
+      <a className={styles.textCta} href="#lead" onClick={onLeadCtaClick}>Vyzkoušet formulář <span aria-hidden="true">→</span></a>
     </section>
   )
 }

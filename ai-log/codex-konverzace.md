@@ -163,3 +163,19 @@ Součástí požadavku byl referenční obrázek mobilního srovnání: dva sele
 +- Rychlá tabulka obsahuje zaměření, roční náklady, počet akcií, aktiva ETF a dividendy; index a rizika jsou v rozbalovacích podrobnostech. Odkaz na zdroje a datum údajů zůstává.
 +- `npm run test:smoke` prošel pro mobilní selecty, zákaz duplicit, tabulku bez posuvu při 390/320 px, desktopové odznačení do nulového stavu a zbytek konverzní cesty. `npm run lint`, `npm run build` a `git diff --check` prošly. Vite upozorňuje na místní Node.js 20.18.1 pod deklarovaným minimem.
 +- Mobilní snímek byl vizuálně zkontrolován proti přiložené referenci. Nic nebylo commitováno ani nasazeno.
+
+## 2026-10-09 21:42 CEST — UŽIVATEL
+
+> Z instrukcích odstran VEŘEJNÉ API BEZ BACKENDU, jelikož jsem to blbe pochopil a odeslani emailu odstran. Misto toho pridej ajax a udelej funkci na odeslani mailu, kterou ale zakomentuj. A když uživatel klikne na tlacitko odeslat, tak tam dej loading na 1s a potom success.
+
+## 2026-10-09 21:42 CEST — CODEX
+
+> Rozumím tomu tak, že formulář má nyní jen **demonstrovat odeslání**: po kliknutí ukáže 1 sekundu načítání a potom úspěšný stav, ale žádný požadavek neodešle. AJAX funkci připravím jako zakomentovaný příklad s endpointem předávaným parametrem; nebude se volat. Upravím také instrukce, texty a měření, aby nikde netvrdily, že byl e-mail skutečně přijat. Nic nebudu commitovat ani nasazovat.
+
+## 2026-10-09 21:42 CEST — CODEX (práce a ověření)
+
++- Odstraněn oddíl „VEŘEJNÉ API BEZ BACKENDU“ v `instructions.txt` a požadavek Formspree v kódu i README. `.env.example` s endpointem byl odstraněn.
++- Formulář validuje e-mail, zobrazí 1 sekundu načítání a potom stav „Ukázka dokončena“. Adresa se neodesílá ani neukládá. Zakomentovaná AJAX funkce je v `src/leadAjaxExample.ts` a nikde se nevolá.
++- Upraveny texty formuláře, informace o soukromí, CTA srovnání a názvy měřicích událostí na `lead_demo_*`, aby nepotvrzovaly reálný sběr kontaktů.
++- `npm run lint`, `npm run build`, `npm run test:smoke` a `git diff --check` prošly. Smoke test ověřil sekundové načítání, blokování duplicit, potvrzení ukázky a žádné síťové volání z formuláře. Vite upozorňuje na místní Node.js 20.18.1.
++- Nic nebylo commitováno ani nasazeno. Záznam je ruční a není automatickým exportem.

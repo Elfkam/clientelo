@@ -1,8 +1,8 @@
 # ETF v kostce
 
-Česká mobilní landing page pro návštěvníka, který zná základy ETF a přichází z reklamy. Hlavní nabídka je srovnání pěti ETF na americké akcie a ukázka žádosti o PDF přehled. E-mail se žádá **až po veřejně dostupném interaktivním srovnání**. Pořadí hero → vysvětlení burzy a aktiv → srovnání → formulář ukazuje hodnotu nabídky dříve než žádá kontakt.
+Česká mobilní landing page pro návštěvníka, který zná základy ETF a přichází z reklamy. Hlavní nabídka je srovnání pěti ETF na americké akcie a ukázka žádosti o PDF přehled. Ukázkový e-mailový formulář následuje **až po veřejně dostupném interaktivním srovnání**. Pořadí hero → vysvětlení burzy a aktiv → srovnání → formulář ukazuje hodnotu nabídky dříve než žádá kontakt.
 
-Jde o omezenou demonstraci konverzní cesty. **PDF se nevytváří ani nedoručuje.** Úspěšná odpověď Formspree potvrzuje pouze přijetí kontaktu API, nikoli doručení PDF. Před skutečnou reklamní kampaní je nutné doručování doplnit.
+Jde o omezenou demonstraci konverzní cesty. **E-mail se nikam neposílá ani neukládá a PDF se nevytváří ani nedoručuje.** Po platné adrese se na jednu sekundu zobrazí načítání a poté potvrzení dokončení ukázky. Před skutečnou reklamní kampaní je nutné doručování a zpracování kontaktů samostatně doplnit.
 
 Dvě konkrétní české reklamy včetně textu, titulku, CTA, vizuálu a návaznosti hero jsou v [ads.md](ads.md). Hero odpovídá oběma variantám. Záznam práce s Codexem je v [ai-log/codex-konverzace.md](ai-log/codex-konverzace.md); zadavatel nepoužil Claude Code, proto nelze dodat jeho `/export`. Jde o ručně vedený záznam, nikoli automatický export.
 
@@ -12,8 +12,6 @@ Požadováno Node.js 20.19+ nebo 22.12+ (podle upozornění Vite 8 při buildu).
 
 ```bash
 npm ci
-cp .env.example .env.local
-# V .env.local nastavte vlastní veřejný endpoint Formspree.
 npm run dev
 npm run lint
 npm run build
@@ -21,7 +19,7 @@ npm run preview
 npm run test:smoke
 ```
 
-Bez skutečného `VITE_FORMSPREE_ENDPOINT` je formulář úmyslně vypnutý a ukáže chybějící konfiguraci. Příklad v `.env.example` není funkční adresa. `.env` a `.env.local` jsou ignorovány Gitem. Pro sestavení statického webu je výstup v `dist/`; na hostingu nastavte build `npm run build`, výstupní adresář `dist` a `VITE_FORMSPREE_ENDPOINT` jako build-time proměnnou.
+Není potřeba nastavovat endpoint ani proměnnou prostředí. Produkční sestavení je v `dist/`; ukázkový formulář v něm také nic neodesílá.
 
 ## Pět ETF a zdroje
 
@@ -39,17 +37,15 @@ U každého ETF factsheet uvádí ticker, název, „Exchange NYSE Arca“, inde
 
 Výběr neověřuje dostupnost pro českého retailového investora, registraci UCITS ani PRIIPs KID. Nákup závisí na brokerovi, jurisdikci a typu investora. Jde o obecné srovnání, ne individuální investiční doporučení; minulý výnos nezaručuje budoucí výsledek.
 
-## Formulář a osobní údaje
+## Formulář a soukromí
 
-1. V účtu [Formspree](https://formspree.io/) založte formulář a zkopírujte jeho veřejný endpoint `https://formspree.io/f/…` do `VITE_FORMSPREE_ENDPOINT`. Bez něj není integrace ověřena a formulář zůstává vypnutý.
-2. Před aktivací doplňte ve stránce provozovatele a kontakt, dobu uchování, potvrďte účel a nastavení služby. Tato data zadavatel zatím neposkytl a jsou označena `[DOPLNIT PŘED OSTRÝM PROVOZEM]`. Bez nich není stránka připravena na ostrý sběr kontaktů.
-3. Otevřete stránku, odešlete vlastní testovací e-mail a ověřte přijetí v účtu Formspree. Úspěch na stránce se ukáže jen při HTTP 2xx. Testujte také neplatný e-mail, pomalou síť, síťovou chybu, HTTP 429 a jiný HTTP error; chyba má dovolovat opakování. Nepoužívejte cizí adresy při testu.
+Formulář ověří syntaxi e-mailu, na jednu sekundu zobrazí načítání a potom potvrzení místní ukázky. Nevolá síťové API, adresu neukládá a neposílá ji do analytiky. Chybně zadaná adresa vyvolá validační zprávu. Ve `src/leadAjaxExample.ts` je kompletně zakomentovaná AJAX funkce, která by v budoucnu poslala adresu na endpoint předaný parametrem. Nikde se nevolá; bez skutečného endpointu nelze doložit přijetí kontaktu ani doručení PDF.
 
-Do API se odesílá pouze `email`. Marketingový souhlas ani další účel zde nejsou implementovány; žádný checkbox se proto nevydává za souhlas. E-mail není součástí analytických událostí ani AI logu.
+Před zapnutím skutečného sběru by bylo nutné doplnit provozovatele, kontakt, účel, dobu uchování a informaci o službě, která by adresy zpracovávala. Tyto údaje zadavatel zatím nemá. Současná stránka žádné kontakty nesbírá.
 
 ## Měření cesty
 
-Adaptér `src/tracking.ts` ukládá události jen lokálně do `window.etfTrackingEvents` a ve vývojovém režimu je vypisuje do konzole. **Vzdálená analytika není zapnutá** a současný adaptér nepoužívá cookies. Z URL se zachovají `utm_source`, `utm_medium`, `utm_campaign`, `utm_content`, `utm_term` a `ad_variant` u každé události v rámci návštěvy, včetně výsledku podání. Hodnoty e-mailu se nikdy neukládají. Pokud bude napojená vzdálená analytická služba, je třeba ji zapnout až podle platných pravidel souhlasu a ověřit přenos v jejím debug rozhraní.
+Adaptér `src/tracking.ts` ukládá události jen lokálně do `window.etfTrackingEvents` a ve vývojovém režimu je vypisuje do konzole. **Vzdálená analytika není zapnutá** a současný adaptér nepoužívá cookies. Z URL se zachovají `utm_source`, `utm_medium`, `utm_campaign`, `utm_content`, `utm_term` a `ad_variant` u každé události v rámci návštěvy, včetně dokončení ukázky. Hodnoty e-mailu se nikdy neukládají. Pokud bude napojená vzdálená analytická služba, je třeba ji zapnout až podle platných pravidel souhlasu a ověřit přenos v jejím debug rozhraní.
 
 | Událost | Spouštěč | Další údaje |
 | --- | --- | --- |
@@ -58,16 +54,16 @@ Adaptér `src/tracking.ts` ukládá události jen lokálně do `window.etfTracki
 | `compare_change` | každá skutečná změna výběru | nové tickery, fáze `comparison` |
 | `lead_cta_click` | kliknutí na CTA za srovnáním | vybrané tickery, fáze `lead` |
 | `lead_form_view` | formulář vstoupí do viditelné části obrazovky | vybrané tickery, fáze `lead` |
-| `lead_submit_attempt` | pokus o odeslání | vybrané tickery, fáze `lead` |
-| `lead_submit_success` | odpověď API HTTP 2xx | vybrané tickery, fáze `lead` |
-| `lead_submit_error` | validace, konfigurace, síť, 429 či jiný HTTP error | vybrané tickery, fáze `lead`, typ chyby |
+| `lead_demo_attempt` | pokus spustit ukázku | vybrané tickery, fáze `lead` |
+| `lead_demo_complete` | dokončení po jedné sekundě | vybrané tickery, fáze `lead` |
+| `lead_demo_error` | neplatná e-mailová adresa | vybrané tickery, fáze `lead`, typ chyby |
 
-Pracovní **hypotéza konverze je 3 %**, nikoli naměřený výsledek. Jmenovatel: unikátní návštěvy s `landing_view` v dané kampani. Čitatel: unikátní návštěvy s `lead_submit_success` ze stejné kampaně. Bez vzdálené analytiky nelze tuto míru zatím spolehlivě změřit mezi návštěvníky.
+Pracovní **hypotéza konverze pro budoucí skutečný sběr je 3 %**, nikoli naměřený výsledek. Jmenovatel: unikátní návštěvy kampaně. Čitatel: unikátní návštěvy, jejichž kontakt by skutečná služba přijala. Událost `lead_demo_complete` měří jen dokončení ukázky a za přijatý kontakt se nepovažuje. Bez skutečného sběru a vzdálené analytiky tuto míru nelze změřit.
 
 Hypotézy A/B testů v pořadí očekávaného dopadu: (1) reklama a hero zdůrazňující konkrétní rozdíly fondů proti verzi podle investičních stylů; (2) délka cesty od prvního srovnání k formuláři; (3) podoba náhledu všech pěti fondů v hero. Vyhodnocovat pouze po doplnění skutečného doručování a měření.
 
 ## Ověření a nasazení
 
-`npm run lint` a `npm run build` kontrolují zdrojový kód a produkční sestavení. `npm run test:smoke` potřebuje lokální Google Chrome, Node.js s přepínačem `--experimental-websocket` a volné porty 5317/9327; spustí skutečný prohlížeč a pouze v testu nahradí HTTP odpovědi Formspree. Ověřuje mobilní šířku, výběr klávesnicí, události, validaci, čekání, 429, síťovou chybu, opakování a úspěch po HTTP 200. Ruční kontrolní cesta: otevřít odkaz reklamy s UTM na mobilní šířce, číst hero, klávesnicí vybrat dvě ETF, ověřit změnu tabulky, přejít CTA k formuláři, zkusit chybový i úspěšný stav a zkontrolovat `window.etfTrackingEvents`. Skutečný úspěšný stav zatím **nebyl ověřen**, protože chybí reálný endpoint. Mobilní (390 px) a desktopové (1365 px) zobrazení bylo vizuálně zkontrolováno v headless Chrome; automatický test potvrdil ovládání výběru klávesnicí a nulové vodorovné přetečení na mobilní šířce.
+`npm run lint` a `npm run build` kontrolují zdrojový kód a produkční sestavení. `npm run test:smoke` potřebuje lokální Google Chrome, Node.js s přepínačem `--experimental-websocket` a volné porty 5317/9327. Ověřuje mobilní selecty a tabulku bez vodorovného posuvu, desktopové odznačení ETF, ovládání klávesnicí, validaci e-mailu, sekundový stav načítání, potvrzení a nulový počet síťových požadavků z formuláře. Ruční cesta: otevřít stránku s UTM, porovnat dvě ETF, přejít k formuláři, vyzkoušet neplatnou a platnou adresu a zkontrolovat `window.etfTrackingEvents`. Dokončení ukázky není potvrzením přijetí kontaktu.
 
-Veřejný GitHub repozitář: [Elfkam/clientelo](https://github.com/Elfkam/clientelo). Veřejná URL nasazení: po nasazení doplnit. Bez přístupu k hostingu a bez údajů pro ostrý formulář se nesmí tvrdit, že web nebo sběr kontaktů běží veřejně. Školní ukázku lze hostovat jako statický web se zakázaným formulářem. Pro ostrou reklamní kampaň je nutné doplnit doručování PDF, osobní údaje provozovatele, skutečný Formspree endpoint, vhodnou analytiku a vhodný hosting. [Podmínky Vercel](https://vercel.com/legal/terms) uvádějí, že bezplatný Hobby je jen pro osobní či nekomerční použití; pro komerční kampaň je potřeba vhodný plán nebo jiné vhodné řešení.
+Veřejný GitHub repozitář: [Elfkam/clientelo](https://github.com/Elfkam/clientelo). Aktuální změny jsou pouze lokální: podle posledního pokynu zadavatele se nic necommituje ani nenasazuje. Pro ostrou reklamní kampaň je potřeba samostatně doplnit skutečné doručování, údaje provozovatele, vhodnou analytiku a hosting. Výběr ETF neověřuje dostupnost pro české retailové investory.

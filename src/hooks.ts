@@ -50,45 +50,29 @@ export function useEtfComparison() {
   return { selectedEtfs, selectedTickers, selectedFunds, toggleFund, selectFund }
 }
 
-type SubmissionStatus = 'idle' | 'submitting' | 'success' | 'error'
-const endpoint = import.meta.env.VITE_FORMSPREE_ENDPOINT?.trim() || ''
-export const isFormConfigured = /^https:\/\/formspree\.io\/f\/[a-zA-Z0-9]+$/.test(endpoint) && !endpoint.endsWith('/ID_FORMULARE')
+type DemoStatus = 'idle' | 'submitting' | 'success' | 'error'
 
-export function useLeadSubmission(track: ReturnType<typeof useFunnelTracking>) {
-  const [status, setStatus] = useState<SubmissionStatus>('idle')
+export function useLeadDemo(track: ReturnType<typeof useFunnelTracking>) {
+  const [status, setStatus] = useState<DemoStatus>('idle')
   const [message, setMessage] = useState('')
   const busy = useRef(false)
-  const submit = async (email: string) => {
+  const timer = useRef<ReturnType<typeof setTimeout> | null>(null)
+  useEffect(() => () => { if (timer.current) clearTimeout(timer.current) }, [])
+  const submit = (email: string) => {
     if (busy.current) return
-    track('lead_submit_attempt', 'lead')
-    if (!isFormConfigured) {
-      setStatus('error'); setMessage('Formulář zatím není nastaven. Zkuste to prosím později.')
-      track('lead_submit_error', 'lead', 'configuration'); return
-    }
+    track('lead_demo_attempt', 'lead')
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) {
       setStatus('error'); setMessage('Zadejte prosím platnou e-mailovou adresu.')
-      track('lead_submit_error', 'lead', 'validation'); return
+      track('lead_demo_error', 'lead', 'validation'); return
     }
     busy.current = true
     setStatus('submitting'); setMessage('')
-    try {
-      const response = await fetch(endpoint, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-        body: JSON.stringify({ email: email.trim() }),
-      })
-      if (!response.ok) {
-        setStatus('error')
-        setMessage(response.status === 429 ? 'Příliš mnoho pokusů. Počkejte prosím chvíli a zkuste to znovu.' : 'Odeslání se nepodařilo. Zkuste to prosím znovu.')
-        track('lead_submit_error', 'lead', response.status === 429 ? 'rate_limit' : 'http')
-        return
-      }
+    timer.current = setTimeout(() => {
+      timer.current = null
+      busy.current = false
       setStatus('success')
-      track('lead_submit_success', 'lead')
-    } catch {
-      setStatus('error'); setMessage('Nepodařilo se připojit. Zkontrolujte připojení a zkuste to znovu.')
-      track('lead_submit_error', 'lead', 'network')
-    } finally { busy.current = false }
+      track('lead_demo_complete', 'lead')
+    }, 1000)
   }
   return { status, message, submit }
 }

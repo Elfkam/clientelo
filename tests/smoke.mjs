@@ -8,7 +8,7 @@ const port = 5317
 const debugPort = 9327
 const profile = await mkdtemp(join(tmpdir(), 'etf-chrome-'))
 const vite = spawn('npm', ['run', 'dev', '--', '--host', '127.0.0.1', '--port', String(port), '--strictPort'], {
-  env: { ...process.env, VITE_FORMSPREE_ENDPOINT: 'https://formspree.io/f/test123' }, stdio: 'ignore',
+  env: process.env, stdio: 'ignore',
 })
 const chrome = spawn(process.env.CHROME_BIN || 'google-chrome', [
   '--headless', '--no-sandbox', '--disable-gpu', `--remote-debugging-port=${debugPort}`,
@@ -105,26 +105,28 @@ try {
   assert.equal(await evaluate(`document.querySelector('caption').textContent.includes('VTV a VUG')`), true)
   assert.equal(await evaluate(`document.querySelector('details summary').textContent.includes('Podrobnosti a rizika')`), true)
 
-  await evaluate(`window.__requests=[];window.__mockStatus=429;window.fetch=async (...args)=>{window.__requests.push(args);await new Promise(r=>setTimeout(r,100));if(window.__mockStatus==='network')throw Error('network');return new Response('{}',{status:window.__mockStatus})}`)
+  await evaluate(`window.__requests=[];window.fetch=(...args)=>{window.__requests.push(args);throw Error('Unexpected form request')}`)
   await evaluate(`document.querySelector('#email').value='bad';document.querySelector('form').requestSubmit()`)
   await pause(30)
   assert.equal(await evaluate(`window.__requests.length`), 0)
-  assert.equal(await evaluate(`window.etfTrackingEvents.some(x=>x.errorType==='validation')`), true)
+  assert.equal(await evaluate(`document.querySelector('#form-message').textContent.includes('platnou')`), true)
+  assert.equal(await evaluate(`window.etfTrackingEvents.some(x=>x.name==='lead_demo_error' && x.errorType==='validation')`), true)
 
   await evaluate(`document.querySelector('#email').value='test@example.com';document.querySelector('form').requestSubmit()`)
   assert.equal(await evaluate(`document.querySelector('button[type=submit]').disabled`), true)
-  await pause(180)
-  assert.equal(await evaluate(`document.querySelector('#form-message').textContent.includes('Příliš mnoho pokusů')`), true)
-  await evaluate(`window.__mockStatus='network';document.querySelector('form').requestSubmit()`)
-  await pause(180)
-  assert.equal(await evaluate(`document.querySelector('#form-message').textContent.includes('Nepodařilo se připojit')`), true)
-  await evaluate(`window.__mockStatus=200;document.querySelector('form').requestSubmit()`)
-  await pause(180)
-  assert.equal(await evaluate(`document.querySelector('[role=status] h3').textContent.includes('jsme přijali')`), true)
-  assert.equal(await evaluate(`window.etfTrackingEvents.filter(x=>x.name==='lead_submit_success').length`), 1)
+  assert.equal(await evaluate(`document.querySelector('button[type=submit]').textContent.includes('Načítání')`), true)
+  await evaluate(`document.querySelector('form').requestSubmit()`)
+  await pause(500)
+  assert.equal(await evaluate(`document.querySelector('button[type=submit]').disabled`), true)
+  assert.equal(await evaluate(`window.etfTrackingEvents.filter(x=>x.name==='lead_demo_complete').length`), 0)
+  await pause(650)
+  assert.equal(await evaluate(`document.querySelector('[role=status] h3').textContent.includes('Ukázka dokončena')`), true)
+  assert.equal(await evaluate(`window.etfTrackingEvents.filter(x=>x.name==='lead_demo_complete').length`), 1)
+  assert.equal(await evaluate(`window.etfTrackingEvents.filter(x=>x.name==='lead_demo_attempt').length`), 2)
   assert.equal(await evaluate(`JSON.stringify(window.etfTrackingEvents).includes('test@example.com')`), false)
-  assert.equal(await evaluate(`window.__requests.every(x=>x[0]==='https://formspree.io/f/test123')`), true)
-  console.log('Browser smoke passed: mobile selectors, no table scroll, desktop deselection and empty state, keyboard, validation, pending, 429, network error, retry, success, UTM, no email in tracking.')
+  assert.equal(await evaluate(`window.__requests.length`), 0)
+  console.log('Browser smoke passed: comparison, keyboard, validation, one-second demo loading, duplicate-click guard, local completion, UTM, no email in tracking or network.')
+
 } finally {
   socket?.close()
   chrome.kill('SIGTERM')

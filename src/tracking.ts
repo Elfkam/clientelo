@@ -1,4 +1,4 @@
-export type EventName = 'landing_view' | 'compare_start' | 'compare_change' | 'lead_cta_click' | 'lead_form_view' | 'lead_submit_attempt' | 'lead_submit_success' | 'lead_submit_error'
+export type EventName = 'landing_view' | 'compare_start' | 'compare_change' | 'lead_cta_click' | 'lead_form_view' | 'lead_demo_attempt' | 'lead_demo_complete' | 'lead_demo_error'
 
 export type TrackingEvent = {
   name: EventName
@@ -6,7 +6,7 @@ export type TrackingEvent = {
   campaign: Record<string, string>
   selectedEtfs: string[]
   stage: 'landing' | 'comparison' | 'lead'
-  errorType?: 'validation' | 'configuration' | 'network' | 'rate_limit' | 'http'
+  errorType?: 'validation'
 }
 
 declare global {
