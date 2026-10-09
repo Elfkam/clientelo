@@ -9,8 +9,8 @@ import { SourcesSection } from './components/SourcesSection'
 import { useEtfComparison, useFunnelTracking } from './hooks'
 
 function App() {
-  const { selectedEtfs, selectedFunds, toggleFund } = useEtfComparison()
-  const track = useFunnelTracking(selectedEtfs)
+  const { selectedEtfs, selectedTickers, selectedFunds, toggleFund, selectFund } = useEtfComparison()
+  const track = useFunnelTracking(selectedTickers)
   const handleLeadCtaClick = () => track('lead_cta_click', 'lead')
 
   return (
@@ -23,6 +23,7 @@ function App() {
           selectedEtfs={selectedEtfs}
           selectedFunds={selectedFunds}
           toggleFund={toggleFund}
+          selectFund={selectFund}
           onLeadCtaClick={handleLeadCtaClick}
         />
         <LeadSection track={track} />

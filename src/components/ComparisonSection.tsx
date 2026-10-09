@@ -5,38 +5,94 @@ import styles from '../App.module.css'
 const formatAssets = (millions: number) => `${Math.round(millions / 1000).toLocaleString('cs-CZ')} mld. USD`
 
 type ComparisonSectionProps = {
-  selectedEtfs: string[]
+  selectedEtfs: [string, string]
   selectedFunds: Etf[]
   toggleFund: (ticker: string) => void
+  selectFund: (position: 0 | 1, ticker: string) => void
   onLeadCtaClick: () => void
 }
 
-export function ComparisonSection({ selectedEtfs, selectedFunds, toggleFund, onLeadCtaClick }: ComparisonSectionProps) {
+export function ComparisonSection({ selectedEtfs, selectedFunds, toggleFund, selectFund, onLeadCtaClick }: ComparisonSectionProps) {
+  const hasComparison = selectedFunds.length === 2
+
   return (
     <section className={styles.comparison} id="comparison" aria-labelledby="comparison-title">
-          <div className={styles.sectionHeading}><div><p className={styles.sectionLabel}>02 / SROVNÁNÍ</p><h2 id="comparison-title">Vyberte dvě ETF</h2></div><p>Klepněte na fond. V tabulce níže uvidíte rozdíly; na mobilu ji posuňte do stran.</p></div>
-          <div className={styles.fundGrid}>
-            {etfs.map((fund, index) => {
-              const selected = selectedEtfs.includes(fund.ticker)
-              return <button className={`${styles.fundCard} ${selected ? styles.selected : ''}`} type="button" aria-pressed={selected} onClick={() => toggleFund(fund.ticker)} key={fund.ticker}>
-                <span className={styles.fundTop}><span>0{index + 1} / NYSE ARCA</span><span className={styles.selectIcon}>{selected ? '✓' : '+'}</span></span>
-                <strong>{fund.ticker}</strong><span className={styles.fundFocus}>{fund.focus}</span><span className={styles.fundExpense}>Náklady <b>{fund.expenseRatio}</b></span>
-              </button>
-            })}
+      <div className={styles.sectionHeading}>
+        <div>
+          <p className={styles.sectionLabel}>02 / SROVNÁNÍ</p>
+          <h2 id="comparison-title">Dvě ETF.<br />Jasné rozdíly.</h2>
+          <p>Vyberte fondy, které chcete porovnat.</p>
+        </div>
+      </div>
+
+      <div className={styles.mobileSelectors} role="group" aria-label="Výběr dvou ETF">
+        {([0, 1] as const).map((position) => (
+          <div className={styles.selectorField} key={position}>
+            <label htmlFor={`etf-select-${position}`}>{position === 0 ? 'První ETF' : 'Druhé ETF'}</label>
+            <select
+              id={`etf-select-${position}`}
+              value={selectedEtfs[position]}
+              onChange={(event) => selectFund(position, event.target.value)}
+            >
+              <option value="">Vybrat ETF</option>
+              {etfs.filter((fund) => fund.ticker !== selectedEtfs[position === 0 ? 1 : 0]).map((fund) => (
+                <option value={fund.ticker} key={fund.ticker}>{fund.ticker}</option>
+              ))}
+            </select>
           </div>
-          <div className={styles.tableWrap} role="region" aria-label="Srovnání vybraných ETF" tabIndex={0}>
-            <table><caption>Vybrané fondy: {selectedFunds.map((fund) => fund.ticker).join(' a ')}</caption><thead><tr><th scope="col">Ukazatel</th>{selectedFunds.map((fund) => <th scope="col" key={fund.ticker}>{fund.ticker}</th>)}</tr></thead><tbody>
+        ))}
+      </div>
+
+      <div className={styles.fundGrid} aria-label="Výběr ETF pro srovnání">
+        {etfs.map((fund, index) => {
+          const selected = selectedEtfs.includes(fund.ticker)
+          return (
+            <button className={`${styles.fundCard} ${selected ? styles.selected : ''}`} type="button" aria-pressed={selected} onClick={() => toggleFund(fund.ticker)} key={fund.ticker}>
+              <span className={styles.fundTop}><span>0{index + 1} / NYSE ARCA</span><span className={styles.selectIcon}>{selected ? '✓' : '+'}</span></span>
+              <strong>{fund.ticker}</strong>
+              <span className={styles.fundFocus}>{fund.focus}</span>
+              <span className={styles.fundExpense}>Náklady <b>{fund.expenseRatio}</b></span>
+            </button>
+          )
+        })}
+      </div>
+
+      <div className={styles.tableWrap} role="region" aria-label="Srovnání vybraných ETF" tabIndex={0}>
+        {hasComparison ? (
+          <table>
+            <caption className={styles.tableCaption}>Vybrané fondy: {selectedFunds.map((fund) => fund.ticker).join(' a ')}</caption>
+            <thead><tr><th scope="col">Ukazatel</th>{selectedFunds.map((fund) => <th scope="col" key={fund.ticker}>{fund.ticker}</th>)}</tr></thead>
+            <tbody>
               <tr><th scope="row">Zaměření</th>{selectedFunds.map((fund) => <td key={fund.ticker}>{fund.focus}</td>)}</tr>
-              <tr><th scope="row">Sledovaný index</th>{selectedFunds.map((fund) => <td key={fund.ticker}>{fund.index}</td>)}</tr>
-              <tr><th scope="row">Nákladovost</th>{selectedFunds.map((fund) => <td key={fund.ticker}>{fund.expenseRatio} ročně</td>)}</tr>
+              <tr><th scope="row">Roční náklady</th>{selectedFunds.map((fund) => <td key={fund.ticker}>{fund.expenseRatio}</td>)}</tr>
               <tr><th scope="row">Počet akcií</th>{selectedFunds.map((fund) => <td key={fund.ticker}>{fund.holdings.toLocaleString('cs-CZ')}</td>)}</tr>
               <tr><th scope="row">Aktiva ETF</th>{selectedFunds.map((fund) => <td key={fund.ticker}>{formatAssets(fund.assetsMillionsUsd)}</td>)}</tr>
-              <tr><th scope="row">Výplata dividend</th>{selectedFunds.map((fund) => <td key={fund.ticker}>{fund.dividendSchedule}</td>)}</tr>
-              <tr><th scope="row">Na co dát pozor</th>{selectedFunds.map((fund) => <td key={fund.ticker}>{fund.risk}</td>)}</tr>
-            </tbody></table>
+              <tr><th scope="row">Dividendy</th>{selectedFunds.map((fund) => <td key={fund.ticker}>{fund.dividendSchedule}</td>)}</tr>
+            </tbody>
+          </table>
+        ) : (
+          <p className={styles.emptyComparison} role="status">
+            {selectedFunds.length === 0 ? 'Vyberte dvě ETF a zobrazí se jejich srovnání.' : 'Vyberte ještě druhé ETF pro zobrazení srovnání.'}
+          </p>
+        )}
+      </div>
+
+      {hasComparison && (
+        <details className={styles.comparisonDetails}>
+          <summary>Podrobnosti a rizika</summary>
+          <div className={styles.detailsGrid}>
+            {selectedFunds.map((fund) => (
+              <div key={fund.ticker}>
+                <h3>{fund.ticker}</h3>
+                <p><strong>Index:</strong> {fund.index}</p>
+                <p><strong>Na co dát pozor:</strong> {fund.risk}</p>
+              </div>
+            ))}
           </div>
-          <p className={styles.sourceNote}>Aktiva a počty akcií platí k {factsAsOf}; nákladovost podle tehdy uvedeného prospektu. <a href="#sources">Primární zdroje pro všech 5 fondů</a>.</p>
-          <a className={styles.textCta} href="#lead" onClick={onLeadCtaClick}>Chci přehled pěti ETF <span aria-hidden="true">↗</span></a>
-        </section>
+        </details>
+      )}
+      <p className={styles.sourceNote}>Údaje k {factsAsOf}. <a href="#sources">Zdroje a datum údajů</a>.</p>
+      <a className={styles.textCta} href="#lead" onClick={onLeadCtaClick}>Získat přehled e-mailem <span aria-hidden="true">→</span></a>
+    </section>
   )
 }

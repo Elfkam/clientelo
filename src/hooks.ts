@@ -16,20 +16,38 @@ export function useFunnelTracking(selectedEtfs: string[]) {
 }
 
 export function useEtfComparison() {
-  const [selectedEtfs, setSelectedEtfs] = useState<string[]>(['VOO', 'VB'])
+  const [selectedEtfs, setSelectedEtfs] = useState<[string, string]>(['VTV', 'VUG'])
   const [hasStarted, setHasStarted] = useState(false)
-  const selectedFunds = selectedEtfs.map((ticker) => etfs.find((fund) => fund.ticker === ticker)!).filter(Boolean)
-  const toggleFund = (ticker: string) => {
-    if (selectedEtfs.includes(ticker)) return
+  const selectedTickers = selectedEtfs.filter(Boolean)
+  const selectedFunds = selectedTickers.map((ticker) => etfs.find((fund) => fund.ticker === ticker)!).filter(Boolean)
+  const updateSelection = (next: [string, string]) => {
     if (!hasStarted) {
-      trackEvent({ name: 'compare_start', stage: 'comparison', selectedEtfs })
+      trackEvent({ name: 'compare_start', stage: 'comparison', selectedEtfs: selectedTickers })
       setHasStarted(true)
     }
-    const next = [selectedEtfs[1], ticker]
     setSelectedEtfs(next)
-    trackEvent({ name: 'compare_change', stage: 'comparison', selectedEtfs: next })
+    trackEvent({ name: 'compare_change', stage: 'comparison', selectedEtfs: next.filter(Boolean) })
   }
-  return { selectedEtfs, selectedFunds, toggleFund }
+  const toggleFund = (ticker: string) => {
+    const next: [string, string] = [...selectedEtfs]
+    const selectedPosition = next.indexOf(ticker)
+    if (selectedPosition !== -1) {
+      next[selectedPosition] = ''
+    } else {
+      const emptyPosition = next.indexOf('')
+      if (emptyPosition !== -1) next[emptyPosition] = ticker
+      else return updateSelection([next[1], ticker])
+    }
+    updateSelection(next)
+  }
+  const selectFund = (position: 0 | 1, ticker: string) => {
+    if (ticker === selectedEtfs[position]) return
+    if (ticker && (!etfs.some((fund) => fund.ticker === ticker) || ticker === selectedEtfs[position === 0 ? 1 : 0])) return
+    const next: [string, string] = [...selectedEtfs]
+    next[position] = ticker
+    updateSelection(next)
+  }
+  return { selectedEtfs, selectedTickers, selectedFunds, toggleFund, selectFund }
 }
 
 type SubmissionStatus = 'idle' | 'submitting' | 'success' | 'error'

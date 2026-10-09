@@ -3,3 +3,61 @@
 @media(max-width:900px){.heroInner{gap:30px}.fundGrid{grid-template-columns:repeat(3,1fr)}.leadLayout{grid-template-columns:1fr 1fr;gap:35px}.notes{grid-template-columns:1fr}.disclaimer{grid-column:auto}}
 @media(max-width:650px){.header{height:64px;padding:0 20px}.heroInner{display:block;padding:56px 20px 66px;min-height:0}.hero h1{font-size:45px}.heroVisual{margin:48px 15px 0 0;padding:18px;box-shadow:14px 14px 0 #d4dfd0}.visualRow{padding:10px 0}.intro,.comparison,.notes,.privacy{padding:58px 20px}.intro{display:block}.intro h2,.sectionHeading h2{font-size:42px}.sectionHeading{display:block}.sectionHeading>p{max-width:none}.fundGrid{grid-template-columns:repeat(2,1fr);gap:8px}.fundCard{min-height:175px;padding:12px}.fundCard.selected{padding:11px}.fundCard>strong{font-size:30px;margin-top:15px}.fundTop{font-size:8px}.fundFocus{font-size:12px}.fundExpense{font-size:11px}.leadLayout{display:block;padding:64px 20px}.leadSection h2{font-size:42px}.formCard{margin-top:30px;padding:22px}.notes li{grid-template-columns:46px 1fr;gap:6px}.notes li a{grid-column:auto}.footer{padding:23px 20px}}
 @media(max-width:380px){.hero h1{font-size:39px}.fundGrid{grid-template-columns:1fr 1fr}.fundCard{min-height:185px}.fundTop{letter-spacing:0}.fundExpense{display:block}.fundExpense b{display:block}}
+
+.mobileSelectors{display:none}
+@media(max-width:650px){
+  .mobileSelectors{display:grid;gap:12px;margin-bottom:22px}
+  .selectorField label{display:block;font-size:12px;font-weight:800;letter-spacing:.08em;color:#51705e;margin-bottom:8px}
+  .selectorField select{display:block;width:100%;min-height:52px;padding:0 14px;border:1px solid #aebfb1;border-radius:5px;background:#fff;color:#173229;font-size:15px;font-weight:700}
+  .fundGrid{display:none}
+  .tableWrap{overflow:visible}
+  .tableWrap table,.tableWrap thead,.tableWrap tbody{display:block;width:100%;min-width:0}
+  .tableWrap caption{display:block;width:100%;padding:15px 14px}
+  .tableWrap tr{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
+  .tableWrap thead th:first-child{display:none}
+  .tableWrap thead th{width:auto;min-width:0;padding:12px 14px;font-size:17px}
+  .tableWrap tbody th{grid-column:1/-1;width:auto;padding:12px 14px 6px;background:#f2f6f0;border-bottom:0}
+  .tableWrap tbody td{width:auto;min-width:0;padding:9px 14px 14px;font-size:13px;overflow-wrap:anywhere}
+  .tableWrap tbody td+td{border-left:1px solid #e6ebe3}
+}
+
+.comparison .sectionHeading{display:block}
+.comparison .sectionHeading h2{max-width:620px}
+.comparison .sectionHeading>div>p:last-child{font-size:17px;line-height:1.5;color:#52685c;margin:0}
+.tableWrap{border-radius:6px}
+.tableWrap .tableCaption{position:absolute;width:1px;height:1px;padding:0;border:0;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+.emptyComparison{min-height:155px;margin:0;padding:30px;display:grid;place-items:center;text-align:center;color:#52685c;font-size:17px;line-height:1.4}
+.comparisonDetails{margin-top:16px;background:#fff;border:1px solid #d7dfd4;border-radius:6px}
+.comparisonDetails summary{cursor:pointer;list-style:none;padding:18px 20px;font-size:17px;font-weight:800;display:flex;justify-content:space-between;align-items:center}
+.comparisonDetails summary::-webkit-details-marker{display:none}
+.comparisonDetails summary::after{content:'⌄';font-size:26px;line-height:.6;font-weight:400;transition:transform .2s}
+.comparisonDetails[open] summary::after{transform:rotate(180deg)}
+.detailsGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));border-top:1px solid #d7dfd4}
+.detailsGrid>div{padding:18px 20px;min-width:0}
+.detailsGrid>div+div{border-left:1px solid #d7dfd4}
+.detailsGrid h3{font-size:18px;margin:0 0 10px}
+.detailsGrid p{font-size:13px;line-height:1.5;margin:0 0 9px;overflow-wrap:anywhere}
+
+@media(max-width:650px){
+  .comparison .sectionHeading{margin-bottom:22px}
+  .comparison .sectionHeading h2{font-size:clamp(38px,10.5vw,48px);line-height:1.03;margin-bottom:15px}
+  .comparison .sectionHeading>div>p:last-child{font-size:16px}
+  .mobileSelectors{grid-template-columns:repeat(2,minmax(0,1fr));gap:0;margin-bottom:16px;border:1px solid #8ca99b;border-radius:6px;background:#f8faf5;overflow:hidden}
+  .selectorField{min-width:0;padding:13px 12px 11px}
+  .selectorField+ .selectorField{border-left:1px solid #d5e1d7}
+  .selectorField label{font-size:10px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:7px;color:#657c70}
+  .selectorField select{min-height:39px;padding:0 18px 0 0;border:0;border-radius:0;background:transparent;color:#173229;font-size:24px;font-weight:800;letter-spacing:-.04em}
+  .tableWrap thead th{padding:13px 10px;font-size:21px;text-align:center;background:#e7f0e5;border-bottom:0}
+  .tableWrap thead th+th{border-left:1px solid #d0dfd1}
+  .tableWrap tbody tr{border-top:1px solid #d7dfd4}
+  .tableWrap tbody th{padding:14px 13px 3px;background:#fff;color:#677970;font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase}
+  .tableWrap tbody td{padding:4px 13px 15px;background:#fff;color:#173229;font-size:15px;line-height:1.35;border-bottom:0}
+  .tableWrap tbody td+td{border-left:1px solid #d7dfd4}
+  .comparisonDetails summary{padding:16px;font-size:16px}
+  .detailsGrid>div{padding:15px 13px}
+  .detailsGrid h3{font-size:16px}
+  .detailsGrid p{font-size:12px}
+  .sourceNote{margin:14px 0 17px}
+  .textCta{display:flex;align-items:center;justify-content:center;gap:16px;width:100%;padding:16px;border:0;border-radius:5px;background:#15543f;color:#fff;text-align:center;font-size:15px}
+  .textCta span{margin:0;font-size:20px}
+}

@@ -110,3 +110,56 @@ Tento soubor je ruční přepis viditelné konverzace a významných kroků, nik
 +- Před úpravou i po ní prošly `npm run lint`, `npm run build` a `npm run test:smoke`. Build upozorňuje na místní Node.js 20.18.1 pod deklarovaným minimem Vite. `git diff --check` prošel.
 +- Od posledního pokynu zadavatele nebyl proveden žádný commit ani nasazení. Starší necommitovaná změna v `instructions.txt` zůstala nedotčená.
 +- Tento záznam je ručně doplněný; časy starších bloků jsou označeny jako přibližné. Viditelné zprávy této části konverzace jsou zachyceny, technická metadata a výpisy nástrojů nejsou úplným exportem.
+
+## 2026-10-09 21:25 CEST (přibližný čas, ruční doplnění) — UŽIVATEL
+
+> ComparisonSection se zobrazuje velmi nepřehledně na mobilu, proto je potřeba to předělat. Místo jednotlivého naklikávání na mobilu zobraz 2 selecty pro vybrání ETF, ale nemuzu vybrat ten stejny, když ten první nastavím tuto možnost odstraň z toho druhého. Dále tu tabulku podtím udělej, tak aby se tam vešla a nebyla posouvací.
+
+## 2026-10-09 21:25 CEST (přibližný čas, ruční doplnění) — CODEX
+
+> Na mobilu nahradím výběr z karet dvěma selecty. Každý nabídne jen ETF, které není vybrané v druhém selectu. Tabulku na mobilní šířce upravím tak, aby se každý ukazatel zobrazil nad dvěma hodnotami bez vodorovného posouvání. Desktopové karty zachovám. Nic nebudu commitovat ani nasazovat.
+
+## 2026-10-09 21:27 CEST (přibližný čas, ruční doplnění) — CODEX
+
+> Příčina je v mobilních stylech: původní tabulka měla minimální šířku 620 px a její obal dovoloval vodorovné posouvání. Nové mobilní zobrazení už ukazuje dva selecty a u každého ukazatele dvě hodnoty vedle sebe. Na snímku šířky 390 px je celé srovnání čitelné bez posouvání; teď upravím prohlížečový test pro nové ovládání a ověřím i úzkou šířku.
+
+## 2026-10-09 21:28 CEST — CODEX
+
+> Mobilní výběr i tabulka teď procházejí kontrolou v Chrome při šířkách 390 a 320 px bez vodorovného přetečení. Po změně prvního selectu druhý nenabízí stejný fond a platí to i opačně. Desktopové karty dál fungují; kontrola přístupnosti v Chrome také potvrdila, že se srovnání stále hlásí jako tabulka. Doplním záznam práce a nechám změny pouze lokálně.
+
+## 2026-10-09 21:29 CEST — CODEX
+
+> Použil jsem postup `surgical-patch`, aby se změnil jen výběr ETF, mobilní tabulka a související test. Lint, build a prohlížečový test nyní procházejí; test kontroluje i vyloučení duplicit v obou selectech a tabulku bez posuvu při 320 px. Nic necommituji ani nenasazuji.
+
+## 2026-10-09 21:29 CEST — CODEX (práce a ověření)
+
++- `ComparisonSection` na mobilu používá dva nativní selecty; v možnostech každého chybí ETF zvolený v druhém. Desktopové karty zůstaly.
++- Mobilní tabulka skládá řádky do dvojic hodnot pod společným názvem ukazatele. V Chrome při 390 a 320 px nemá vodorovný přesah; přístupnost stále hlásí role table, row, columnheader a rowheader.
++- Rozšířen `npm run test:smoke` pro mobilní selecty, vyloučení duplicit, chování desktopových karet a nulový posuv tabulky. `npm run test:smoke`, `npm run lint`, `npm run build` a `git diff --check` prošly. Vite stále upozorňuje na místní Node.js 20.18.1.
++- Nebyl proveden commit ani nasazení. Záznam je ruční, nikoli automatický export.
+
+## 2026-10-09 21:34 CEST (přibližný čas, ruční doplnění) — UŽIVATEL
+
+> Ne myslel jsem spis takhle a zaroven dodelej at to na zobrazeni pro pocitac jde vykliknout a nejakou hlasku v te tabulce pokud nemam zaklikle zadne ETF.
+
+Součástí požadavku byl referenční obrázek mobilního srovnání: dva selecty vedle sebe, pět rychlých ukazatelů se dvěma hodnotami, rozbalovací podrobnosti a rizika, odkaz na zdroje a CTA přes celou šířku. Obrázek není v tomto ručním textovém záznamu vložen; není to úplný export platformy.
+
+## 2026-10-09 21:34 CEST (přibližný čas, ruční doplnění) — CODEX
+
+> Podle obrázku upravím mobilní srovnání na dva selecty vedle sebe a kompaktní tabulku se společným názvem ukazatele nad dvojicí hodnot. Podrobnosti a rizika přesunu do rozbalovací části. Na počítači umožním karty i odznačit; když nebude vybrané žádné ETF, tabulka zobrazí pokyn k výběru. Změny nechám lokální, bez commitu a nasazení.
+
+## 2026-10-09 21:35 CEST (přibližný čas, ruční doplnění) — CODEX
+
+> U obrázku je podstatné, že oba výběry jsou vedle sebe a hlavní tabulka ukazuje jen rychle srovnatelné údaje. Upravím stav výběru tak, aby každý select mohl být i prázdný; tím půjde na desktopu odznačit oba fondy a zobrazit prázdný stav. Indexy a rizika zůstanou dostupné v rozbalovacích podrobnostech.
+
+## 2026-10-09 21:36 CEST — CODEX
+
+> Mobilní snímek teď odpovídá ukázce v hlavním rozvržení: selecty jsou vedle sebe, tabulka má dvě hodnoty v každém řádku, podrobnosti a rizika jsou rozbalovací a CTA zabírá celou šířku. Test potvrdil i stav s jedním a s žádným vybraným ETF na počítači. Ještě provedu závěrečnou kontrolu a doplním AI log; nic nebudu commitovat ani nasazovat.
+
+## 2026-10-09 21:37 CEST — CODEX (práce a ověření)
+
++- Výchozí dvojice VTV/VUG podle reference; mobilní selecty jsou vedle sebe a vzájemně vylučují stejný ticker.
++- Desktopové karty lze odznačit. Při nulovém výběru se místo tabulky zobrazí „Vyberte dvě ETF a zobrazí se jejich srovnání.“; při jednom výběru se žádá druhý fond. Oba selecty mohou mít prázdnou hodnotu.
++- Rychlá tabulka obsahuje zaměření, roční náklady, počet akcií, aktiva ETF a dividendy; index a rizika jsou v rozbalovacích podrobnostech. Odkaz na zdroje a datum údajů zůstává.
++- `npm run test:smoke` prošel pro mobilní selecty, zákaz duplicit, tabulku bez posuvu při 390/320 px, desktopové odznačení do nulového stavu a zbytek konverzní cesty. `npm run lint`, `npm run build` a `git diff --check` prošly. Vite upozorňuje na místní Node.js 20.18.1 pod deklarovaným minimem.
++- Mobilní snímek byl vizuálně zkontrolován proti přiložené referenci. Nic nebylo commitováno ani nasazeno.
