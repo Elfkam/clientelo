@@ -1,6 +1,6 @@
-import styles from "./HeroSection.module.css";
-import shared from "../styles/shared.module.css";
 import { etfs, factsAsOf } from "../etfs";
+import shared from "../styles/shared.module.css";
+import styles from "./HeroSection.module.css";
 
 export function HeroSection() {
     return (
@@ -16,7 +16,7 @@ export function HeroSection() {
                         NYSE Arca.
                     </p>
                     <a className={shared.actionButton} href="#comparison">
-                        Porovnat ETF <span aria-hidden="true">↗</span>
+                        Porovnat ETF
                     </a>
                     <p className={styles.heroNote}>
                         Údaje z factsheetů Vanguard k {factsAsOf}.

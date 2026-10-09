@@ -65,6 +65,20 @@ try {
   assert.equal(await evaluate(`[...document.querySelector('#etf-select-1').options].some(x => x.value === 'VTV')`), false)
   assert.equal(await evaluate(`Math.abs(document.querySelector('#etf-select-0').getBoundingClientRect().top - document.querySelector('#etf-select-1').getBoundingClientRect().top) < 2`), true)
   assert.equal(await evaluate(`document.querySelectorAll('tbody tr').length`), 5)
+  const sourcesAreReadable = `(() => {
+    const section = document.querySelector('#sources')
+    const paragraph = section.querySelector('p')
+    return parseFloat(getComputedStyle(paragraph).fontSize) <= 18
+      && paragraph.scrollWidth <= paragraph.clientWidth
+      && [...section.querySelectorAll('li')].every((row) => {
+        const [first, second] = row.querySelectorAll('a')
+        const a = first.getBoundingClientRect()
+        const b = second.getBoundingClientRect()
+        const bounds = row.getBoundingClientRect()
+        return a.right + 4 <= b.left && Math.abs(a.top - b.top) < 2 && b.right <= bounds.right + 1
+      })
+  })()`
+  assert.equal(await evaluate(sourcesAreReadable), true)
 
   for (let index = 0; index < 4; index++) {
     await send('Input.dispatchKeyEvent', { type: 'keyDown', key: 'Tab', code: 'Tab', windowsVirtualKeyCode: 9 })
@@ -84,6 +98,7 @@ try {
   assert.equal(await evaluate(`document.querySelector('[aria-label="Srovnání vybraných ETF"]').scrollWidth > document.querySelector('[aria-label="Srovnání vybraných ETF"]').clientWidth`), false)
 
   await send('Emulation.setDeviceMetricsOverride', { width: 320, height: 700, deviceScaleFactor: 1, mobile: true })
+  assert.equal(await evaluate(sourcesAreReadable), true)
   assert.equal(await evaluate(`document.documentElement.scrollWidth > innerWidth`), false)
   assert.equal(await evaluate(`document.querySelector('[aria-label="Srovnání vybraných ETF"]').scrollWidth > document.querySelector('[aria-label="Srovnání vybraných ETF"]').clientWidth`), false)
 
@@ -106,11 +121,22 @@ try {
   assert.equal(await evaluate(`document.querySelector('details summary').textContent.includes('Podrobnosti a rizika')`), true)
 
   await evaluate(`window.__requests=[];window.fetch=(...args)=>{window.__requests.push(args);throw Error('Unexpected form request')}`)
+  assert.equal(await evaluate(`document.querySelector('#privacy-consent').checked`), false)
+  assert.equal(await evaluate(`document.querySelector('button[type=submit]').disabled`), true)
+  await evaluate(`document.querySelector('#email').value='test@example.com';document.querySelector('form').requestSubmit()`)
+  assert.equal(await evaluate(`window.etfTrackingEvents.filter(x=>x.name==='lead_demo_attempt').length`), 0)
+
+  await evaluate(`document.querySelector('#privacy-consent').click()`)
+  assert.equal(await evaluate(`document.querySelector('button[type=submit]').disabled`), false)
   await evaluate(`document.querySelector('#email').value='bad';document.querySelector('form').requestSubmit()`)
-  await pause(30)
-  assert.equal(await evaluate(`window.__requests.length`), 0)
-  assert.equal(await evaluate(`document.querySelector('#form-message').textContent.includes('platnou')`), true)
-  assert.equal(await evaluate(`window.etfTrackingEvents.some(x=>x.name==='lead_demo_error' && x.errorType==='validation')`), true)
+  assert.equal(await evaluate(`document.querySelector('#email').validity.typeMismatch`), true)
+  assert.equal(await evaluate(`window.etfTrackingEvents.filter(x=>x.name==='lead_demo_attempt').length`), 0)
+  assert.equal(await evaluate(`document.querySelector('button[type=submit]').disabled`), false)
+
+  const beforeLink = await evaluate(`location.href`)
+  await evaluate(`document.querySelector('label[for="privacy-consent"] a').click()`)
+  assert.equal(await evaluate(`location.href`), beforeLink)
+  assert.equal(await evaluate(`document.querySelector('#privacy-consent').checked`), true)
 
   await evaluate(`document.querySelector('#email').value='test@example.com';document.querySelector('form').requestSubmit()`)
   assert.equal(await evaluate(`document.querySelector('button[type=submit]').disabled`), true)
@@ -122,10 +148,11 @@ try {
   await pause(650)
   assert.equal(await evaluate(`document.querySelector('[role=status] h3').textContent.includes('Ukázka dokončena')`), true)
   assert.equal(await evaluate(`window.etfTrackingEvents.filter(x=>x.name==='lead_demo_complete').length`), 1)
-  assert.equal(await evaluate(`window.etfTrackingEvents.filter(x=>x.name==='lead_demo_attempt').length`), 2)
+  assert.equal(await evaluate(`window.etfTrackingEvents.filter(x=>x.name==='lead_demo_attempt').length`), 1)
   assert.equal(await evaluate(`JSON.stringify(window.etfTrackingEvents).includes('test@example.com')`), false)
   assert.equal(await evaluate(`window.__requests.length`), 0)
-  console.log('Browser smoke passed: comparison, keyboard, validation, one-second demo loading, duplicate-click guard, local completion, UTM, no email in tracking or network.')
+  console.log('Browser smoke passed: comparison, mobile sources, native email and consent validation, one-second demo, inert privacy link, UTM, no email in tracking or network.')
+
 
 } finally {
   socket?.close()

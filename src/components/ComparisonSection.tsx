@@ -1,7 +1,7 @@
-import styles from "./ComparisonSection.module.css";
-import shared from "../styles/shared.module.css";
 import type { Etf } from "../etfs";
 import { etfs } from "../etfs";
+import shared from "../styles/shared.module.css";
+import styles from "./ComparisonSection.module.css";
 
 const formatAssets = (millions: number) =>
     `${Math.round(millions / 1000).toLocaleString("cs-CZ")} mld. USD`;
@@ -51,7 +51,7 @@ export function ComparisonSection({
                                 selectFund(position, event.target.value)
                             }
                         >
-                            <option value="">Vybrat ETF</option>
+                            <option value="">Vyberte ETF</option>
                             {etfs
                                 .filter(
                                     (fund) =>

@@ -129,7 +129,7 @@
 }
 @media (max-width: 650px) {
     .comparison,
-.sectionHeading h2 {
+    .sectionHeading h2 {
         font-size: 42px;
     }
     .sectionHeading {
@@ -217,8 +217,8 @@
         overflow: visible;
     }
     .tableWrap table,
-.tableWrap thead,
-.tableWrap tbody {
+    .tableWrap thead,
+    .tableWrap tbody {
         display: block;
         width: 100%;
         min-width: 0;
@@ -314,13 +314,6 @@
 }
 .comparisonDetails summary::-webkit-details-marker {
     display: none;
-}
-.comparisonDetails summary::after {
-    content: "⌄";
-    font-size: 26px;
-    line-height: 0.6;
-    font-weight: 400;
-    transition: transform 0.2s;
 }
 .comparisonDetails[open] summary::after {
     transform: rotate(180deg);

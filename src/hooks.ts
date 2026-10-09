@@ -6,8 +6,8 @@ export function useFunnelTracking(selectedEtfs: string[]) {
   const selection = useRef(selectedEtfs)
   const landingTracked = useRef(false)
   useEffect(() => { selection.current = selectedEtfs }, [selectedEtfs])
-  const track = useCallback((name: EventName, stage: TrackingEvent['stage'], errorType?: TrackingEvent['errorType']) => {
-    trackEvent({ name, stage, selectedEtfs: selection.current, ...(errorType ? { errorType } : {}) })
+  const track = useCallback((name: EventName, stage: TrackingEvent['stage']) => {
+    trackEvent({ name, stage, selectedEtfs: selection.current })
   }, [])
   useEffect(() => {
     if (!landingTracked.current) { landingTracked.current = true; track('landing_view', 'landing') }
@@ -50,23 +50,18 @@ export function useEtfComparison() {
   return { selectedEtfs, selectedTickers, selectedFunds, toggleFund, selectFund }
 }
 
-type DemoStatus = 'idle' | 'submitting' | 'success' | 'error'
+type DemoStatus = 'idle' | 'submitting' | 'success'
 
 export function useLeadDemo(track: ReturnType<typeof useFunnelTracking>) {
   const [status, setStatus] = useState<DemoStatus>('idle')
-  const [message, setMessage] = useState('')
   const busy = useRef(false)
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null)
   useEffect(() => () => { if (timer.current) clearTimeout(timer.current) }, [])
-  const submit = (email: string) => {
+  const submit = () => {
     if (busy.current) return
     track('lead_demo_attempt', 'lead')
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) {
-      setStatus('error'); setMessage('Zadejte prosím platnou e-mailovou adresu.')
-      track('lead_demo_error', 'lead', 'validation'); return
-    }
     busy.current = true
-    setStatus('submitting'); setMessage('')
+    setStatus('submitting')
     timer.current = setTimeout(() => {
       timer.current = null
       busy.current = false
@@ -74,5 +69,5 @@ export function useLeadDemo(track: ReturnType<typeof useFunnelTracking>) {
       track('lead_demo_complete', 'lead')
     }, 1000)
   }
-  return { status, message, submit }
+  return { status, submit }
 }

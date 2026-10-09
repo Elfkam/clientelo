@@ -39,7 +39,7 @@
     display: block;
     margin-bottom: 10px;
 }
-.formCard input {
+.formCard input[type="email"] {
     width: 100%;
     height: 52px;
     border: 1px solid var(--color-border-input);
@@ -48,14 +48,30 @@
     background: var(--color-white);
     color: var(--color-ink);
 }
-.formMessage {
-    font-size: 12px;
-    line-height: 1.5;
-    color: var(--color-text-form);
+.consent {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin: 16px 0 20px;
 }
-.formMessage {
-    min-height: 18px;
-    margin: 10px 0;
+.consent input {
+    flex: 0 0 18px;
+    width: 18px;
+    height: 18px;
+    margin: 1px 0 0;
+    accent-color: var(--color-green-action);
+}
+.consent label {
+    display: inline;
+    margin: 0;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1.5;
+}
+.consent a {
+    color: var(--color-green-link);
+    text-decoration: underline;
+    text-underline-offset: 2px;
 }
 .submitButton {
     width: 100%;

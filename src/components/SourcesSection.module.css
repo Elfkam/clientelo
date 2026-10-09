@@ -42,13 +42,31 @@
 }
 @media (max-width: 650px) {
     .notes {
-        font-size: 42px;
+        gap: 28px;
+    }
+    .notes > div > p:last-child {
+        font-size: 16px;
     }
     .notes li {
-        grid-template-columns: 46px 1fr;
-        gap: 6px;
+        grid-template-columns: 46px max-content max-content minmax(0, 1fr);
+        gap: 8px 10px;
     }
-    .notes li a {
-        grid-column: auto;
+    .notes li strong {
+        grid-column: 1;
+        grid-row: 1;
+    }
+    .notes li > span {
+        grid-column: 2 / -1;
+        grid-row: 1;
+        min-width: 0;
+        overflow-wrap: anywhere;
+    }
+    .notes li a:first-of-type {
+        grid-column: 2;
+        grid-row: 2;
+    }
+    .notes li a:last-of-type {
+        grid-column: 3;
+        grid-row: 2;
     }
 }

@@ -43,7 +43,7 @@ Výběr neověřuje dostupnost pro českého retailového investora, registraci 
 
 ## Formulář a soukromí
 
-Formulář ověří syntaxi e-mailu, na jednu sekundu zobrazí načítání a potom potvrzení místní ukázky. Nevolá síťové API, adresu neukládá a neposílá ji do analytiky. Chybně zadaná adresa vyvolá validační zprávu. Ve `src/leadAjaxExample.ts` je kompletně zakomentovaná AJAX funkce, která by v budoucnu poslala adresu na endpoint předaný parametrem. Nikde se nevolá; bez skutečného endpointu nelze doložit přijetí kontaktu ani doručení PDF.
+Platnost povinného e-mailu kontroluje přímo prohlížeč pomocí HTML formuláře. Povinný checkbox souhlasu zpřístupní tlačítko až po zaškrtnutí; odkaz v jeho textu je zatím neaktivní a nikam nevede. Po platném odeslání formulář na jednu sekundu zobrazí načítání a potom potvrzení místní ukázky. Nevolá síťové API, adresu neukládá a neposílá ji do analytiky. Checkbox je pouze součástí ukázky, protože žádné údaje se ve formuláři nezpracovávají na serveru. Ve `src/leadAjaxExample.ts` je kompletně zakomentovaná AJAX funkce, která by v budoucnu poslala adresu na endpoint předaný parametrem. Nikde se nevolá; bez skutečného endpointu nelze doložit přijetí kontaktu ani doručení PDF.
 
 Před zapnutím skutečného sběru by bylo nutné doplnit provozovatele, kontakt, účel, dobu uchování a informaci o službě, která by adresy zpracovávala. Tyto údaje zadavatel zatím nemá. Současná stránka žádné kontakty nesbírá.
 
@@ -60,7 +60,6 @@ Adaptér `src/tracking.ts` ukládá události jen lokálně do `window.etfTracki
 | `lead_form_view` | formulář vstoupí do viditelné části obrazovky | vybrané tickery, fáze `lead` |
 | `lead_demo_attempt` | pokus spustit ukázku | vybrané tickery, fáze `lead` |
 | `lead_demo_complete` | dokončení po jedné sekundě | vybrané tickery, fáze `lead` |
-| `lead_demo_error` | neplatná e-mailová adresa | vybrané tickery, fáze `lead`, typ chyby |
 
 Pracovní **hypotéza konverze pro budoucí skutečný sběr je 3 %**, nikoli naměřený výsledek. Jmenovatel: unikátní návštěvy kampaně. Čitatel: unikátní návštěvy, jejichž kontakt by skutečná služba přijala. Událost `lead_demo_complete` měří jen dokončení ukázky a za přijatý kontakt se nepovažuje. Bez skutečného sběru a vzdálené analytiky tuto míru nelze změřit.
 
@@ -68,6 +67,6 @@ Hypotézy A/B testů v pořadí očekávaného dopadu: (1) reklama a hero zdůra
 
 ## Ověření a nasazení
 
-`npm run lint` a `npm run build` kontrolují zdrojový kód a produkční sestavení. `npm run test:smoke` potřebuje lokální Google Chrome, Node.js s přepínačem `--experimental-websocket` a volné porty 5317/9327. Ověřuje mobilní selecty a tabulku bez vodorovného posuvu, desktopové odznačení ETF, ovládání klávesnicí, validaci e-mailu, sekundový stav načítání, potvrzení a nulový počet síťových požadavků z formuláře. Ruční cesta: otevřít stránku s UTM, porovnat dvě ETF, přejít k formuláři, vyzkoušet neplatnou a platnou adresu a zkontrolovat `window.etfTrackingEvents`. Dokončení ukázky není potvrzením přijetí kontaktu.
+`npm run lint` a `npm run build` kontrolují zdrojový kód a produkční sestavení. `npm run test:smoke` potřebuje lokální Google Chrome, Node.js s přepínačem `--experimental-websocket` a volné porty 5317/9327. Ověřuje mobilní selecty a tabulku bez vodorovného posuvu, desktopové odznačení ETF, ovládání klávesnicí, nativní validaci e-mailu a povinného checkboxu, sekundový stav načítání, potvrzení a nulový počet síťových požadavků z formuláře. Ruční cesta: otevřít stránku s UTM, porovnat dvě ETF, přejít k formuláři, vyzkoušet neplatnou a platnou adresu a zkontrolovat `window.etfTrackingEvents`. Dokončení ukázky není potvrzením přijetí kontaktu.
 
 Veřejný GitHub repozitář: [Elfkam/clientelo](https://github.com/Elfkam/clientelo). Aktuální změny jsou pouze lokální: podle posledního pokynu zadavatele se nic necommituje ani nenasazuje. Pro ostrou reklamní kampaň je potřeba samostatně doplnit skutečné doručování, údaje provozovatele, vhodnou analytiku a hosting. Výběr ETF neověřuje dostupnost pro české retailové investory.

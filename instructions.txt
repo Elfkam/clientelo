@@ -28,13 +28,13 @@ PRAVIDLA PRO KÓD A JAZYK
 
 - První mobilní obrazovka: konkrétní titulek vycházející z reklamy, jednovětá hodnota, důvěryhodný údaj nebo náhled porovnání a zřetelné CTA. Nepoužívej generické investiční fráze ani vizuál připomínající nedokončenou AI šablonu.
 - Návštěvník musí vidět užitečné porovnání ještě před formulářem. Vytvoř jednoduché interaktivní srovnání pěti fondů; například volbu dvou ETF a přehled rozdílů. Každý zásadní krok nabídne smysluplnou cestu k formuláři. Nepřidávej interakce jen pro efekt.
-- Ukázkový formulář má jediné povinné pole e-mail, jasný popis místního chování, validační chybu, načítání a potvrzení dokončení ukázky. Adresu neposílej na server ani do analytiky. Přidej stručné informace o soukromí této ukázky.
+- Ukázkový formulář má povinné pole e-mail s nativní HTML validací a povinný checkbox souhlasu. Tlačítko je dostupné až po zaškrtnutí checkboxu. Text souhlasu obsahuje odkaz na osobní údaje, který zatím nikam nevede. Jasně popiš místní chování, načítání a potvrzení dokončení ukázky. Adresu neposílej na server ani do analytiky.
 - Po jedné sekundě potvrď pouze dokončení místní ukázky. Text nesmí tvrdit, že byl e-mail přijat nebo PDF doručeno. V README popiš omezení a zakomentovaný AJAX příklad.
 - Udrž rychlé načtení na mobilu, přístupnost klávesnicí, čitelnost, vhodné kontrasty a žádné rozbité stavy při načítání.
 
 4. MĚŘENÍ A README
 
-- Navrhni a zapoj měření celé cesty: landing_view, compare_start, compare_change, lead_cta_click, lead_form_view, lead_demo_attempt, lead_demo_complete, lead_demo_error. U každé události popiš spouštěč a parametry (např. varianta reklamy/UTM, zvolená ETF, fáze trychtýře). Do analytiky neposílej e-mail ani jiný osobní údaj. Zachovej UTM parametry od příchodu k měření konverze; případnou analytickou službu nastav jen podle platných pravidel souhlasu.
+- Navrhni a zapoj měření celé cesty: landing_view, compare_start, compare_change, lead_cta_click, lead_form_view, lead_demo_attempt, lead_demo_complete. U každé události popiš spouštěč a parametry (např. varianta reklamy/UTM, zvolená ETF, fáze trychtýře). Do analytiky neposílej e-mail ani jiný osobní údaj. Zachovej UTM parametry od příchodu k měření konverze; případnou analytickou službu nastav jen podle platných pravidel souhlasu.
 - Pokud chybí analytický účet nebo měřicí ID, udělej jasně popsaný adaptér a funkční lokální kontrolu událostí, ale netvrď, že vzdálené měření běží. Uveď, jak se produkční měření zapne a ověří.
 - README: cílová skupina, hlavní nabídka a přesný okamžik zobrazení ukázkového formuláře, důvod pořadí sekcí, obě české reklamy nebo odkaz na jejich soubor, datové zdroje a přesná kotovací burza každého z pěti ETF, diagram nebo tabulka událostí, způsob testování, nasazení a známá omezení. Uveď, že výběr neověřuje dostupnost pro české retailové investory.
 - Uveď číselný odhad konverze (např. pracovní hypotézu procenta návštěva → skutečně přijatý kontakt v budoucím provozu), definici jmenovatele a čitatele a tři hypotézy A/B testů v pořadí očekávaného dopadu. Označ odhad za hypotézu, ne za naměřený výsledek.

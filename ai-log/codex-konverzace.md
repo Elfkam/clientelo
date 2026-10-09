@@ -194,3 +194,28 @@ Součástí požadavku byl referenční obrázek mobilního srovnání: dva sele
 +- Původní rozpracovaná změna `.visualTop` byla zachována. Dvě již před úpravou nepoužité lokální proměnné v `ComparisonSection` byly odstraněny bez změny chování, aby prošel lint a build. V hero byly odstraněny dva odkazy na neexistující CSS třídy.
 +- Před změnou selhávaly lint a build na těchto proměnných a smoke test na textu potvrzení formuláře. Po změně lint a build procházejí; smoke test prochází kontrolami rozvržení a stále končí na stejném výchozím nesouladu textu potvrzení v řádku 123.
 +- Žádný commit ani nasazení. Ruční záznam, ne automatický export.
+
+## 2026-10-09 22:23 CEST — UŽIVATEL
+
+> SourcesSection ma rozbite styly pro mobilni zarizeni viz obrazek
+
+Součástí požadavku byl obrázek mobilní sekce zdrojů s příliš velkým odstavcem a odkazy stlačenými k sobě. Obrázek není vložen do tohoto ručního textového záznamu.
+
+## 2026-10-09 22:23 CEST — CODEX (práce a ověření)
+
++- Příčinou bylo mobilní pravidlo `font-size: 42px` na celé sekci `SourcesSection`, takže se velikost dědila na popisný odstavec. Řádky se dvěma odkazy měly nedostatečný prostor.
++- Mobilní CSS nyní nastavuje odstavci 16 px a rozkládá ticker, název a oba odkazy do dvou řádků s oddělenými sloupci. Desktopové CSS zůstalo stejné.
++- Nové kontroly v prohlížečovém testu při 390 a 320 px prošly. `npm run lint` a `npm run build` prošly. Celý `npm run test:smoke` stále končí na již dříve známém nesouladu textu potvrzení formuláře (nyní řádek 138), po provedení mobilních kontrol. `git diff --check` prošel.
++- Nic nebylo commitováno ani nasazeno. Ruční záznam, nikoli automatický export.
+
+## 2026-10-09 22:29 CEST — UŽIVATEL
+
+> V komponentne LeadSection odstran noValidate a nech validaci na html form. Dale pridej checkbox, takovy ten text souhlasim se spracovanim udaju, kde udaje bude a ale link nepovede nikam. A udelej ze tlacitko nejde zmacknout dokud nezaskrnu checkbox.
+
+## 2026-10-09 22:29 CEST — CODEX (práce a ověření)
+
++- Z `LeadSection` odstraněno `noValidate`. Povinný e-mail kontroluje prohlížeč pomocí `type="email"` a `required`; regex a validační chyba byly odstraněny z `useLeadDemo`.
++- Přidán povinný checkbox „Souhlasím se zpracováním osobních údajů“; tlačítko je neaktivní, dokud není zaškrtnut. Odkaz na „osobních údajů“ má preventDefault a nic neotevírá.
++- Text úspěchu znovu pravdivě označuje pouze dokončení ukázky; e-mail se neposílá a PDF se nedoručuje. Změněny instrukce, README, události a prohlížečový test.
++- `npm run lint`, `npm run build` a `npm run test:smoke` prošly. Test ověřuje neaktivní tlačítko před souhlasem, nativní neplatnost e-mailu, neaktivní odkaz, sekundové načítání i nulové síťové volání.
++- Žádný commit ani nasazení. Ruční záznam, nikoli automatický export.
