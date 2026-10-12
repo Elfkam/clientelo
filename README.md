@@ -75,7 +75,3 @@ Adaptér `src/tracking.ts` ukládá události jen lokálně do `window.etfTracki
 | `lead_form_view`     | formulář vstoupí do viditelné části obrazovky | vybrané tickery, fáze `lead`          |
 | `lead_demo_attempt`  | pokus spustit ukázku                          | vybrané tickery, fáze `lead`          |
 | `lead_demo_complete` | dokončení po jedné sekundě                    | vybrané tickery, fáze `lead`          |
-
-## Ověření a nasazení
-
-`npm run lint` a `npm run build` kontrolují zdrojový kód a produkční sestavení. Ruční kontrola: otevřít stránku na mobilu i počítači, porovnat dvě ETF, kliknout na odkaz „Zobrazit více ETF“ a ověřit přechod k formuláři, zaměření e-mailového pole a zachování výběru ETF. Poté vyzkoušet nativní validaci e-mailu, checkbox a sekundové načítání. Dokončení ukázky není potvrzením přijetí kontaktu ani doručení PDF.
