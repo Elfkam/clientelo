@@ -2,6 +2,8 @@
 
 Česká mobilní landing page pro návštěvníka, který zná základy ETF a přichází z reklamy. Hlavní nabídka je srovnání pěti ETF na americké akcie a ukázka žádosti o PDF přehled. Ukázkový e-mailový formulář následuje **až po veřejně dostupném interaktivním srovnání**. Pořadí hero → vysvětlení burzy a aktiv → srovnání → formulář ukazuje hodnotu nabídky dříve než žádá kontakt.
 
+Ve srovnání je pět konkrétních ETF. Odkaz „Zobrazit více ETF“ vede z mobilního i počítačového zobrazení k formuláři a zaměří e-mailové pole.
+
 Jde o omezenou demonstraci konverzní cesty. **E-mail se nikam neposílá ani neukládá a PDF se nevytváří ani nedoručuje.** Po platné adrese se na jednu sekundu zobrazí načítání a poté potvrzení dokončení ukázky. Před skutečnou reklamní kampaní je nutné doručování a zpracování kontaktů samostatně doplnit.
 
 Dvě konkrétní české reklamy včetně textu, titulku, CTA, vizuálu a návaznosti hero jsou v [ads.md](ads.md). Hero odpovídá oběma variantám. Záznam práce s Codexem je v [ai-log/codex-konverzace.md](ai-log/codex-konverzace.md); zadavatel nepoužil Claude Code, proto nelze dodat jeho `/export`. Jde o ručně vedený záznam, nikoli automatický export.
@@ -16,7 +18,6 @@ npm run dev
 npm run lint
 npm run build
 npm run preview
-npm run test:smoke
 ```
 
 Není potřeba nastavovat endpoint ani proměnnou prostředí. Produkční sestavení je v `dist/`; ukázkový formulář v něm také nic neodesílá.
@@ -56,7 +57,7 @@ Adaptér `src/tracking.ts` ukládá události jen lokálně do `window.etfTracki
 | `landing_view` | první zobrazení aplikace | UTM, varianta reklamy, fáze `landing` |
 | `compare_start` | první změna výběru fondů | původní tickery, fáze `comparison` |
 | `compare_change` | každá skutečná změna výběru | nové tickery, fáze `comparison` |
-| `lead_cta_click` | kliknutí na CTA za srovnáním | vybrané tickery, fáze `lead` |
+| `lead_cta_click` | kliknutí na odkaz „Zobrazit více ETF“ | vybrané tickery, fáze `lead` |
 | `lead_form_view` | formulář vstoupí do viditelné části obrazovky | vybrané tickery, fáze `lead` |
 | `lead_demo_attempt` | pokus spustit ukázku | vybrané tickery, fáze `lead` |
 | `lead_demo_complete` | dokončení po jedné sekundě | vybrané tickery, fáze `lead` |
@@ -67,6 +68,6 @@ Hypotézy A/B testů v pořadí očekávaného dopadu: (1) reklama a hero zdůra
 
 ## Ověření a nasazení
 
-`npm run lint` a `npm run build` kontrolují zdrojový kód a produkční sestavení. `npm run test:smoke` potřebuje lokální Google Chrome, Node.js s přepínačem `--experimental-websocket` a volné porty 5317/9327. Ověřuje mobilní selecty a tabulku bez vodorovného posuvu, desktopové odznačení ETF, ovládání klávesnicí, nativní validaci e-mailu a povinného checkboxu, sekundový stav načítání, potvrzení a nulový počet síťových požadavků z formuláře. Ruční cesta: otevřít stránku s UTM, porovnat dvě ETF, přejít k formuláři, vyzkoušet neplatnou a platnou adresu a zkontrolovat `window.etfTrackingEvents`. Dokončení ukázky není potvrzením přijetí kontaktu.
+`npm run lint` a `npm run build` kontrolují zdrojový kód a produkční sestavení. Ruční kontrola: otevřít stránku na mobilu i počítači, porovnat dvě ETF, kliknout na odkaz „Zobrazit více ETF“ a ověřit přechod k formuláři, zaměření e-mailového pole a zachování výběru ETF. Poté vyzkoušet nativní validaci e-mailu, checkbox a sekundové načítání. Dokončení ukázky není potvrzením přijetí kontaktu ani doručení PDF.
 
 Veřejný GitHub repozitář: [Elfkam/clientelo](https://github.com/Elfkam/clientelo). Aktuální změny jsou pouze lokální: podle posledního pokynu zadavatele se nic necommituje ani nenasazuje. Pro ostrou reklamní kampaň je potřeba samostatně doplnit skutečné doručování, údaje provozovatele, vhodnou analytiku a hosting. Výběr ETF neověřuje dostupnost pro české retailové investory.

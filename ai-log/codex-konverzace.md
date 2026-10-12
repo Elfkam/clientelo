@@ -219,3 +219,50 @@ Součástí požadavku byl obrázek mobilní sekce zdrojů s příliš velkým o
 +- Text úspěchu znovu pravdivě označuje pouze dokončení ukázky; e-mail se neposílá a PDF se nedoručuje. Změněny instrukce, README, události a prohlížečový test.
 +- `npm run lint`, `npm run build` a `npm run test:smoke` prošly. Test ověřuje neaktivní tlačítko před souhlasem, nativní neplatnost e-mailu, neaktivní odkaz, sekundové načítání i nulové síťové volání.
 +- Žádný commit ani nasazení. Ruční záznam, nikoli automatický export.
+
+## 2026-10-12 17:24 CEST — UŽIVATEL
+
+> Ted potrebuji pridat featury, které vybidnou uzivatele vyplnit email a obdržet to pdf. Chci to udealt tak, ze tedka to srovnavani obsahuje 5 etf, ale v tom pdfku jich bude mnohem vice. Proto do komponenty ComparisonSection potrebuji prdiat další etf zamknute/schovane a když na ne uživatel klikne tak presmerovani na formular. Jak pro mobilni zobrazeni do selectu tak i na pc.
+
+## 2026-10-12 17:24 CEST — UŽIVATEL (odpověď na upřesnění)
+
+> Anonymní položka „Další ETF v PDF“
+>
+> Jen navádět na formulář
+
+## 2026-10-12 17:24 CEST — UŽIVATEL (doplnění během práce)
+
+> Odstran ten smoke test, to jsou pozustatky te komunikace s BE, ale to nedelam. A odstran ho taky s README a atd.
+
+## 2026-10-12 17:24 CEST — CODEX (práce a ověření)
+
++- Do obou mobilních selectů přidána anonymní zamčená položka „Další ETF v PDF“ a na počítači zamčená karta. Volba vede k `#lead`, zaznamená `lead_cta_click` a nemění vybrané ETF ani srovnávací tabulku.
++- Text formuláře a potvrzení uvádí, že PDF se teprve připravuje a současný formulář nic neodesílá. Nejsou přidána neověřená data dalších fondů.
++- Na výslovnou žádost odstraněn `tests/smoke.mjs`, skript `test:smoke` z `package.json` a aktuální odkazy v README. Starší historické zmínky v tomto AI logu zůstávají jako záznam proběhlé práce.
++- `npm run lint` a `npm run build` prošly. Jednorázová kontrola v Chrome ověřila obě mobilní volby a desktopovou kartu, přechod k formuláři, zachování dvojice ETF a odpovídající události. Žádný trvalý test nebyl přidán.
++- Nic nebylo commitováno ani nasazeno. Ruční záznam, nikoli automatický export.
+
+## 2026-10-12 17:32 CEST — UŽIVATEL
+
+> Ty zmeny v ComparisonSection jsem vratil zpet a misto toho tlacitko co jsi tam daval tam dej klasicky jen&#x20;
+> ```plaintext
+>         <a>Zobrazit více ETF</a> ktere povede na formular a rovnou dej focus na input.
+> ```
+
+## 2026-10-12 17:32 CEST — CODEX (práce a ověření)
+
++- Po uživatelově vrácení zamčených položek byl za výběr pěti ETF přidán jediný odkaz „Zobrazit více ETF“. Má `href="#lead"`, po přechodu zaměří e-mailové pole a zaznamená událost `lead_cta_click`.
++- README a `instructions.txt` nyní popisují odkaz místo zamčené nabídky. Současný ukázkový formulář zůstává bez skutečného doručení PDF.
++- `npm run lint` a `npm run build` prošly. Jednorázová kontrola v Chrome na mobilu a počítači ověřila hash `#lead`, fokus `#email`, zachovaný výběr ETF a dvě klikací události. Testovací skript nebyl uložen do projektu.
++- Nic nebylo commitováno ani nasazeno. Ruční záznam, nikoli automatický export.
+
+## 2026-10-12 17:35 CEST — UŽIVATEL
+
+> podivej se proc na mobilu to ma font-size 42px
+
+## 2026-10-12 17:35 CEST — CODEX (příčina, oprava a ověření)
+
++- Mobilní CSS v `ComparisonSection.module.css` mělo společný selektor `.comparison, .sectionHeading h2 { font-size: 42px; }`. Velikost nastavená na celé sekci se dědila i na odkaz „Zobrazit více ETF“.
++- Odstraněno chybné nastavení na sekci; nadpis dál používá vlastní mobilní `clamp(38px, 10.5vw, 48px)`.
++- `npm run lint` a `npm run build` prošly. Jednorázové měření v Chrome: při 390 px mají sekce a odkaz 16 px, nadpis 40,95 px; při 320 px sekce a odkaz 16 px, nadpis 38 px.
++- Nic nebylo commitováno ani nasazeno. Ruční záznam, nikoli automatický export.

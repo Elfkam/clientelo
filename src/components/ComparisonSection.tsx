@@ -19,6 +19,7 @@ export function ComparisonSection({
     selectedFunds,
     toggleFund,
     selectFund,
+    onLeadCtaClick,
 }: ComparisonSectionProps) {
     const hasComparison = selectedFunds.length === 2;
 
@@ -102,6 +103,18 @@ export function ComparisonSection({
                     );
                 })}
             </div>
+            <a
+                className={styles.moreEtfsLink}
+                href="#lead"
+                onClick={() => {
+                    onLeadCtaClick();
+                    requestAnimationFrame(() => {
+                        document.getElementById("email")?.focus();
+                    });
+                }}
+            >
+                Zobrazit více ETF
+            </a>
 
             <div
                 className={styles.tableWrap}
