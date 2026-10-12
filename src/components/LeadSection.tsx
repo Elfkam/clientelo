@@ -46,18 +46,16 @@ export function LeadSection({ track }: LeadSectionProps) {
                         <em>na jednom místě.</em>
                     </h2>
                     <p className={styles.leadDescription}>
-                        Připravujeme PDF s širším přehledem ETF. Tento formulář
-                        zatím jen ukazuje, jak by žádost fungovala; e-mail se
-                        nikam neodesílá.
+                        Vyplňte formulář a my vám na e-mail pošleme dokument s
+                        podrobnějším přehledem ETF.
                     </p>
                 </div>
                 <div className={styles.formCard}>
                     {status === "success" ? (
                         <div role="status" className={styles.success}>
-                            <h3>Ukázka dokončena.</h3>
+                            <h3>Děkujeme za odběr</h3>
                             <p>
-                                E-mail se nikam neodeslal a PDF se zatím
-                                nedoručuje.
+                                PDF s přehledem o ETF vám bude zaslán na e-mail.
                             </p>
                         </div>
                     ) : (
